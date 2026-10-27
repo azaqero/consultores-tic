@@ -54,6 +54,21 @@ Rollback is a file operation, not a rebuild:
 The rollback window stays open until the new site has run for at least a week with
 confirmed email delivery and no reported broken links.
 
+## Server access
+
+The reseller account provides no SSH. Deployment therefore goes over SFTP or the
+control panel's file manager, and steps 3 and 4 are manual uploads.
+
+This is a constraint, not a preference, and it shapes the design:
+
+- The server must never need to build anything, which is why the build happens
+  locally and `dist/` is the only artifact that travels.
+- Uploads must be resilient to interruption. SFTP clients that support resumable
+  transfers and directory sync are required; a failed half-upload is recovered by
+  re-syncing the directory, not by starting over.
+- Any future automation has to target FTP/SFTP. If the account ever exposes SSH,
+  `rsync` replaces the upload step without touching anything else in this design.
+
 ## Consequences
 
 **Positive**
@@ -66,20 +81,13 @@ confirmed email delivery and no reported broken links.
 
 **Negative**
 
-- Deployment is a manual upload, not `git push`. Accepted: the output is a static
-  directory, so the step is scriptable later with `rsync` or FTP from CI without
-  changing anything else in the design.
+- Deployment is a manual upload over SFTP, not `git push` and not `rsync`.
+  Accepted: the output is a static directory, so the step is scriptable later over
+  FTP from CI without changing anything else in the design.
 - No atomic release on the server. Mitigated by staging first and by keeping the
   previous version on disk.
 - The WordPress installation remains on disk during the rollback window, consuming
   space and requiring that it stays unreachable.
-
-## Open question
-
-Whether the reseller control panel exposes SSH. If it does, deployment can be a
-single `rsync` command and step 4 becomes scriptable immediately. If it does not,
-uploads go over SFTP or the file manager. The rollback strategy is unaffected
-either way.
 
 ## Alternatives considered
 
