@@ -12,6 +12,8 @@
     "og:image": "node scripts/generate-og.mjs",
     "verify:deploy": "node scripts/verify-deploy.mjs",
     "check:leaks": "node scripts/check-leaks.mjs",
+    "release": "npm run cv:pdf && npm run check:leaks",
+    "release:staging": "npm run build:staging && node scripts/check-leaks.mjs dist-new",
     "astro": "astro"
   },
   "dependencies": {

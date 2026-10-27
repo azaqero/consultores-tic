@@ -12,9 +12,17 @@ never builds anything; it serves files.
 ## 0. Pre-flight (local, before touching the server)
 
 ```bash
-npm run cv:pdf          # build + regenerate the CV PDF
-node scripts/verify-deploy.mjs https://www.consultores-tic.com   # after upload only
+npm run release          # build + CV PDFs + leak check, in that order
 ```
+
+`npm run release` is the only supported way to produce a deployable artifact:
+it rebuilds, regenerates both CV PDFs, and then refuses to finish if the build
+contains an email address that is not explicitly allowed or anything resembling
+a phone number. Running the steps separately is how an unchecked artifact reaches
+the server.
+
+For a subdirectory staging build, use `npm run release:staging`, which scans
+`dist-new` instead of `dist`.
 
 Confirm before continuing:
 

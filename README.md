@@ -25,7 +25,9 @@ Decision Record in [`docs/adr/`](docs/adr/).
 | `npm run dev`     | Start the dev server at `localhost:4321`     |
 | `npm run build`   | Build the production site into `./dist/`     |
 | `npm run preview` | Preview the production build locally         |
-| `npm run cv:pdf`  | Rebuild and regenerate `public/cv.pdf`       |
+| `npm run cv:pdf`  | Rebuild and regenerate both CV PDFs          |
+| `npm run release` | Build, regenerate CVs, and check for leaks   |
+| `npm run check:leaks` | Scan `dist/` for unexpected personal data |
 
 ## The CV
 

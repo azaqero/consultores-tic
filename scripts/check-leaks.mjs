@@ -8,7 +8,8 @@
  * prevent. So instead: any email address found in the build must be explicitly
  * allowed, and anything resembling a phone number is reported.
  *
- * Usage: node scripts/check-leaks.mjs
+ * Usage: node scripts/check-leaks.mjs [dir ...]
+ *        defaults to dist and public.
  */
 import { spawnSync } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
@@ -18,7 +19,8 @@ import { fileURLToPath } from 'node:url';
 // fileURLToPath, not URL.pathname: a path containing non-ASCII characters
 // comes back percent-encoded from pathname and never resolves on disk.
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const targets = [join(root, 'dist'), join(root, 'public')];
+const args = process.argv.slice(2);
+const targets = (args.length ? args : ['dist', 'public']).map((p) => resolve(root, p));
 
 /** The only addresses allowed to appear in anything we publish. */
 const ALLOWED_EMAILS = new Set(['contacto@consultores-tic.com']);
