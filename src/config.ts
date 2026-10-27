@@ -27,6 +27,12 @@ export const identity = {
    */
   phonePublished: false,
 
+  /**
+   * Year the practice started. Used in the footer copyright range, where the
+   * span is the cheapest place to show longevity. Must match the CV.
+   */
+  foundedYear: 2008,
+
   location: 'Lambayeque, Peru',
   githubUser: 'azaqero',
   githubUrl: 'https://github.com/azaqero',

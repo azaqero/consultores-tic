@@ -9,7 +9,12 @@ export interface Props {
 
 const { lang } = Astro.props;
 const strings = t(lang);
-const year = new Date().getFullYear();
+const currentYear = new Date().getFullYear();
+// Single year while the practice is in its founding year, range afterwards.
+const copyrightYears =
+  identity.foundedYear === currentYear
+    ? String(currentYear)
+    : `${identity.foundedYear}\u2013${currentYear}`;
 const decisionsUrl = 'https://github.com/azaqero/consultores-tic/tree/main/docs/adr';
 ---
 
@@ -31,7 +36,7 @@ const decisionsUrl = 'https://github.com/azaqero/consultores-tic/tree/main/docs/
   </div>
 
   <div class="container">
-    <p class="site-footer__legal">© {year} {strings.siteName}. {strings.footer.rights}</p>
+    <p class="site-footer__legal">© {copyrightYears} {strings.siteName}. {strings.footer.rights}</p>
   </div>
 </footer>
 
