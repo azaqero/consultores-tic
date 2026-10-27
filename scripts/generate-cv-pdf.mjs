@@ -10,7 +10,7 @@
  * Usage: npm run cv:pdf   (runs the build first)
  */
 import { spawnSync } from 'node:child_process';
-import { existsSync, mkdirSync, statSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, statSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -66,3 +66,10 @@ if (!existsSync(output)) {
 
 const { size } = statSync(output);
 console.log(`Wrote ${output} (${(size / 1024).toFixed(1)} KB)`);
+
+// `npm run build` runs before this script, so it copied the *previous* PDF into
+// dist/. Without this copy, `dist/cv.pdf` is one generation behind and deploying
+// dist/ would ship a stale document.
+const distCopy = join(root, 'dist', 'cv.pdf');
+copyFileSync(output, distCopy);
+console.log(`Synced ${distCopy}`);

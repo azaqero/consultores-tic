@@ -28,7 +28,6 @@ export interface CvContent {
   contact: {
     location: string;
     email: string;
-    phone: string;
     github: string;
     site: string;
   };
@@ -45,7 +44,7 @@ export const cv: CvContent = {
   title: 'Senior Software Engineer | Backend Products, APIs & AI-Assisted Development',
   contact: {
     location: 'Lambayeque, Peru (GMT-5)',
-    email: 'contacto@consultores-tic.com',
+    email: identity.publicEmail,
     github: 'github.com/azaqero',
     site: 'consultores-tic.com',
   },

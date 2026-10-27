@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import type { Lang } from '../i18n/ui';
 import { pathFor, publishedRoutes } from '../i18n/ui';
 import { home } from '../content/home';
+import { identity } from '../config';
 
 export interface Props {
   lang: Lang;
@@ -24,7 +25,7 @@ const meta = {
   },
 }[lang];
 
-const email = 'contacto@consultores-tic.com';
+const email = identity.publicEmail;
 ---
 
 <BaseLayout title={meta.title} description={meta.description} route="home" lang={lang}>

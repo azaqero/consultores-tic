@@ -4,6 +4,7 @@ import type { Lang } from '../i18n/ui';
 import { identity } from '../config';
 import { pathFor } from '../i18n/ui';
 import { contact } from '../content/contact';
+import { identity } from '../config';
 
 export interface Props {
   lang: Lang;
@@ -34,8 +35,8 @@ const meta = {
       {c.intro.map((paragraph) => <p>{paragraph}</p>)}
 
       <div class="contact__actions">
-        <a class="button button--primary" href={`mailto:contacto@consultores-tic.com`}>
-          contacto@consultores-tic.com
+        <a class="button button--primary" href={`mailto:${identity.publicEmail}`}>
+          {identity.publicEmail}
         </a>
         <a class="button" href={pathFor('cv', lang)}>{c.cvCta}</a>
       </div>

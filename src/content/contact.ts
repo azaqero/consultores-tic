@@ -1,4 +1,5 @@
 import type { Lang } from '../i18n/ui';
+import { identity } from '../config';
 
 export interface ContactDetail {
   label: string;
@@ -26,8 +27,8 @@ export const contact: Record<Lang, ContactContent> = {
     details: [
       {
         label: 'Email',
-        value: 'contacto@consultores-tic.com',
-        href: 'mailto:contacto@consultores-tic.com',
+        value: identity.publicEmail,
+        href: `mailto:${identity.publicEmail}`,
       },
       { label: 'Location', value: 'Lambayeque, Peru · GMT-5' },
       {
@@ -51,8 +52,8 @@ export const contact: Record<Lang, ContactContent> = {
     details: [
       {
         label: 'Correo',
-        value: 'contacto@consultores-tic.com',
-        href: 'mailto:contacto@consultores-tic.com',
+        value: identity.publicEmail,
+        href: `mailto:${identity.publicEmail}`,
       },
       { label: 'Ubicación', value: 'Lambayeque, Perú · GMT-5' },
       {
