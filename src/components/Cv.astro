@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import type { Lang } from '../i18n/ui';
 import { identity } from '../config';
 import { cv } from '../content/cv';
+import { withBase } from '../i18n/ui';
 
 export interface Props {
   lang: Lang;
@@ -63,7 +64,7 @@ const contactLine = [
   <div class="cv-toolbar no-print">
     <p>{strings.updated}</p>
     <div class="cv-toolbar__actions">
-      <a class="button button--primary" href="/cv.pdf" download>{strings.download}</a>
+      <a class="button button--primary" href={withBase('/cv.pdf')} download>{strings.download}</a>
     </div>
   </div>
 

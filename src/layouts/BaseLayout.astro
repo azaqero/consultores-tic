@@ -4,7 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 import type { Lang, RouteKey } from '../i18n/ui';
-import { pathFor, t } from '../i18n/ui';
+import { pathFor, t, withBase } from '../i18n/ui';
 import { identity } from '../config';
 
 export interface Props {
@@ -25,7 +25,7 @@ const site = Astro.site ?? new URL('https://www.consultores-tic.com');
 const canonical = new URL(pathFor(route, lang), site);
 const alternateEn = new URL(pathFor(route, 'en'), site);
 const alternateEs = new URL(pathFor(route, 'es'), site);
-const ogImageUrl = new URL(ogImage, site);
+const ogImageUrl = new URL(withBase(ogImage), site);
 ---
 
 <!doctype html>
@@ -64,7 +64,7 @@ const ogImageUrl = new URL(ogImage, site);
     />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
 
     <script
       type="application/ld+json"

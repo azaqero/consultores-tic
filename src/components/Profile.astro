@@ -5,6 +5,7 @@ import { identity } from '../config';
 import { pathFor } from '../i18n/ui';
 import { profile } from '../content/profile';
 import { existsSync } from 'node:fs';
+import { withBase } from '../i18n/ui';
 
 // The portrait is optional by design: if the file is absent, the page renders a
 // monogram instead of a broken image. See docs/adr/0006-brand-assets.md
@@ -38,7 +39,7 @@ const meta = {
         hasPortrait ? (
           <img
             class="intro__portrait"
-            src="/portrait.jpg"
+            src={withBase('/portrait.jpg')}
             alt={c.headline}
             width="112"
             height="112"

@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:staging": "SITE_BASE=/new OUT_DIR=dist-new astro build",
     "preview": "astro preview",
     "cv:pdf": "npm run build && node scripts/generate-cv-pdf.mjs",
     "og:image": "node scripts/generate-og.mjs",

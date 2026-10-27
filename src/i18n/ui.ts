@@ -83,8 +83,21 @@ export function t(lang: Lang) {
   return ui[lang];
 }
 
+/**
+ * Prefix for every internal absolute path.
+ *
+ * Empty string when the site is served from the document root, `/new` when it
+ * is staged in a subdirectory. read from astro.config's `base`.
+ */
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+/** Prefix a root-absolute path with the deployment base. */
+export function withBase(path: string): string {
+  return `${BASE}${path}`;
+}
+
 export function pathFor(route: RouteKey, lang: Lang): string {
-  return routes[route][lang];
+  return withBase(routes[route][lang]);
 }
 
 export function otherLang(lang: Lang): Lang {
