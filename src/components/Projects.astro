@@ -1,0 +1,222 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import type { Lang } from '../i18n/ui';
+import { projects } from '../content/projects';
+
+export interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const c = projects[lang];
+
+const meta = {
+  en: {
+    title: 'Projects — Gustavo Azañero, Consultores TIC',
+    description:
+      'ApiFuel, ArticleAI, DialReveal and Opticaz: the constraint behind each system, the choices made and what those choices cost.',
+  },
+  es: {
+    title: 'Proyectos — Gustavo Azañero, Consultores TIC',
+    description:
+      'ApiFuel, ArticleAI, DialReveal y Opticaz: la restricción detrás de cada sistema, las decisiones tomadas y lo que costaron.',
+  },
+}[lang];
+---
+
+<BaseLayout title={meta.title} description={meta.description} route="projects" lang={lang}>
+  <section class="intro">
+    <p class="eyebrow">{c.eyebrow}</p>
+    <h1>{c.headline}</h1>
+    <p>{c.intro}</p>
+  </section>
+
+  <div class="projects">
+    {
+      c.items.map((project) => (
+        <article class="project" id={project.slug}>
+          <header class="project__header">
+            <div>
+              <h2>{project.name}</h2>
+              <p class="project__role">
+                {project.role}
+                {project.period && <span class="project__period"> · {project.period}</span>}
+              </p>
+            </div>
+            {project.url && (
+              <a class="project__link" href={project.url} rel="noopener">
+                {project.url.replace(/^https?:\/\//, '')}
+              </a>
+            )}
+          </header>
+
+          <p class="project__summary">{project.summary}</p>
+
+          {project.facts && (
+            <dl class="project__facts">
+              {project.facts.map((fact) => (
+                <div>
+                  <dt>{fact.label}</dt>
+                  <dd>{fact.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+
+          <div class="project__body">
+            {project.sections.map((section) => (
+              <section>
+                <h3>{section.heading}</h3>
+                <p>{section.body}</p>
+              </section>
+            ))}
+          </div>
+
+          <p class="project__stack">{project.stack}</p>
+        </article>
+      ))
+    }
+  </div>
+
+  <section class="other">
+    <h2>{c.otherTitle}</h2>
+    <ul>
+      {c.otherItems.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <p class="note">{c.note}</p>
+</BaseLayout>
+
+<style>
+  .intro {
+    max-width: 46rem;
+    padding-block: var(--space-3) var(--space-5);
+  }
+
+  .intro p {
+    font-size: 1.0625rem;
+  }
+
+  .projects {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .project {
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+    scroll-margin-top: var(--space-4);
+  }
+
+  .project__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2);
+  }
+
+  .project h2 {
+    margin-bottom: 0.15rem;
+  }
+
+  .project__role {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .project__period {
+    color: var(--color-muted);
+    font-weight: 400;
+  }
+
+  .project__link {
+    font-size: 0.875rem;
+  }
+
+  .project__summary {
+    margin-top: var(--space-2);
+    font-size: 1.0625rem;
+    max-width: 60ch;
+  }
+
+  .project__facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: var(--space-2);
+    margin: var(--space-3) 0;
+    padding: var(--space-2) var(--space-3);
+    background: var(--color-accent-soft);
+    border-radius: var(--radius);
+  }
+
+  .project__facts dt {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin-bottom: 0.15rem;
+  }
+
+  .project__facts dd {
+    margin: 0;
+    font-weight: 600;
+    font-size: 0.9375rem;
+  }
+
+  .project__body {
+    display: grid;
+    gap: var(--space-3);
+    max-width: 62ch;
+    margin-top: var(--space-3);
+  }
+
+  .project__body h3 {
+    font-size: 1rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .project__body p {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--color-muted);
+  }
+
+  .project__stack {
+    margin-top: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-muted);
+  }
+
+  .other {
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .other h2 {
+    font-size: var(--step-1);
+  }
+
+  .other ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    color: var(--color-muted);
+    font-size: 0.9375rem;
+  }
+
+  .other li {
+    margin-bottom: 0.35rem;
+  }
+
+  .note {
+    margin-top: var(--space-4);
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+  }
+</style>
