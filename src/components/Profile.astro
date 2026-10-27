@@ -4,6 +4,11 @@ import type { Lang } from '../i18n/ui';
 import { identity } from '../config';
 import { pathFor } from '../i18n/ui';
 import { profile } from '../content/profile';
+import { existsSync } from 'node:fs';
+
+// The portrait is optional by design: if the file is absent, the page renders a
+// monogram instead of a broken image. See docs/adr/0006-brand-assets.md
+const hasPortrait = existsSync(new URL('../../public/portrait.jpg', import.meta.url));
 
 export interface Props {
   lang: Lang;
@@ -28,8 +33,27 @@ const meta = {
 
 <BaseLayout title={meta.title} description={meta.description} route="profile" lang={lang}>
   <section class="intro">
-    <p class="eyebrow">{c.eyebrow}</p>
-    <h1>{c.headline}</h1>
+    <div class="intro__head">
+      {
+        hasPortrait ? (
+          <img
+            class="intro__portrait"
+            src="/portrait.jpg"
+            alt={c.headline}
+            width="112"
+            height="112"
+            loading="eager"
+            decoding="async"
+          />
+        ) : (
+          <span class="intro__monogram" aria-hidden="true">GA</span>
+        )
+      }
+      <div>
+        <p class="eyebrow">{c.eyebrow}</p>
+        <h1>{c.headline}</h1>
+      </div>
+    </div>
     {c.intro.map((paragraph) => <p>{paragraph}</p>)}
   </section>
 
@@ -117,6 +141,38 @@ const meta = {
   .intro {
     max-width: 44rem;
     padding-block: var(--space-3) var(--space-5);
+  }
+
+  .intro__head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+
+  .intro__head h1 {
+    margin-bottom: 0;
+  }
+
+  .intro__portrait,
+  .intro__monogram {
+    flex: 0 0 auto;
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--color-border);
+  }
+
+  .intro__monogram {
+    display: grid;
+    place-items: center;
+    background: var(--color-accent-soft);
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
   }
 
   .intro p {
