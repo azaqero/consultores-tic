@@ -5,6 +5,15 @@ export interface MethodStep {
   body: string;
 }
 
+export interface MethodCost {
+  title: string;
+  intro: string;
+  items: Array<{ title: string; body: string }>;
+  quote: string;
+  nuanceTitle: string;
+  nuance: string;
+}
+
 export interface MethodContent {
   eyebrow: string;
   headline: string;
@@ -20,6 +29,7 @@ export interface MethodContent {
     ai: { title: string; items: string[] };
     me: { title: string; items: string[] };
   };
+  cost: MethodCost;
   claims: {
     title: string;
     body: string;
@@ -97,6 +107,34 @@ export const method: Record<Lang, MethodContent> = {
         ],
       },
     },
+    cost: {
+      title: 'What this actually costs in time',
+      intro:
+        'AI compresses the part that used to be typing. It does not compress the parts that decide whether the result is correct — and those are most of the schedule.',
+      items: [
+        {
+          title: 'The specification comes first, and it is slow on purpose',
+          body: 'Deciding what has to be true when this is done, what is explicitly out of scope, and how each requirement will be verified. If this part is wrong, generating code faster only produces the wrong result faster.',
+        },
+        {
+          title: 'Every diff is read',
+          body: 'Not skimmed because it compiled, and not accepted because a test went green. Data decisions, API contracts and security handling get read by hand, line by line.',
+        },
+        {
+          title: 'Tests are written, reviewed and run',
+          body: 'An agent can draft them. Accepting a test nobody read is worse than having no test at all, because it buys false confidence at exactly the moment you need real confidence.',
+        },
+        {
+          title: 'Operational work does not accelerate',
+          body: 'Backups, staging, post-deployment verification, rollback paths. That is calendar time, not keystroke time, and no model makes it shorter.',
+        },
+      ],
+      quote:
+        'Code that reaches production unreviewed is not faster. It is a deferred cost.',
+      nuanceTitle: 'None of this has a fixed duration',
+      nuance:
+        'The cost scales with the complexity of the problem, not with the number of screens to build. The single biggest variable is how precisely the outcome can be stated: a requirement that keeps moving does not make generation slower, it makes the specification unbounded — and the specification is where the expensive part lives. That is why a client who knows what they want is worth more to the schedule than a faster tool.',
+    },
     claims: {
       title: 'What I do not claim',
       body: 'Using AI does not make software correct, secure or maintainable. It changes how fast code is produced, and it changes nothing about whether that code is right. The difference is made by review, testing and operational experience — which is exactly why those are the parts I refuse to delegate.',
@@ -172,6 +210,34 @@ export const method: Record<Lang, MethodContent> = {
           'Hacerme cargo de lo que pasa en producción',
         ],
       },
+    },
+    cost: {
+      title: 'Lo que esto cuesta en tiempo',
+      intro:
+        'La IA comprime la parte que antes era tipear. No comprime las partes que deciden si el resultado está bien — y esas son la mayor parte del calendario.',
+      items: [
+        {
+          title: 'La especificación va primero, y es lenta a propósito',
+          body: 'Definir qué tiene que ser cierto cuando esto termine, qué queda explícitamente fuera de alcance y cómo se va a verificar cada requisito. Si esta parte está mal, generar código más rápido solo produce el resultado equivocado más rápido.',
+        },
+        {
+          title: 'Cada diff se lee',
+          body: 'No se hojea porque compiló, ni se acepta porque un test dio verde. Las decisiones de datos, los contratos de API y el manejo de seguridad se leen a mano, línea por línea.',
+        },
+        {
+          title: 'Los tests se escriben, se revisan y se corren',
+          body: 'Un agente puede redactarlos. Aceptar un test que nadie leyó es peor que no tener ninguno, porque compra confianza falsa justo en el momento en que necesitás confianza real.',
+        },
+        {
+          title: 'El trabajo operativo no se acelera',
+          body: 'Backups, staging, verificación post-despliegue, rutas de rollback. Eso es tiempo de calendario, no de teclado, y ningún modelo lo acorta.',
+        },
+      ],
+      quote:
+        'El código que llega a producción sin revisar no es más rápido. Es un costo diferido.',
+      nuanceTitle: 'Nada de esto tiene una duración fija',
+      nuance:
+        'El costo escala con la complejidad del problema, no con la cantidad de pantallas a construir. La variable más grande es con qué precisión se puede enunciar el resultado: un requisito que se mueve no hace más lenta la generación, vuelve ilimitada la especificación — y la especificación es donde vive la parte cara. Por eso un cliente que sabe lo que quiere vale más para el calendario que una herramienta más rápida.',
     },
     claims: {
       title: 'Lo que no afirmo',

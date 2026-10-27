@@ -4,6 +4,9 @@ import type { Lang } from '../i18n/ui';
 import { identity } from '../config';
 import { cv } from '../content/cv';
 import { withBase } from '../i18n/ui';
+import { existsSync } from 'node:fs';
+
+const hasPortrait = existsSync(new URL('../../public/portrait.jpg', import.meta.url));
 
 export interface Props {
   lang: Lang;
@@ -51,7 +54,8 @@ const meta = {
   },
 }[lang];
 
-const c = cv;
+const c = cv[lang];
+const pdfPath = lang === 'en' ? '/cv.pdf' : '/es/cv.pdf';
 const contactLine = [
   c.contact.location,
   c.contact.email,
@@ -64,36 +68,42 @@ const contactLine = [
   <div class="cv-toolbar no-print">
     <p>{strings.updated}</p>
     <div class="cv-toolbar__actions">
-      <a class="button button--primary" href={withBase('/cv.pdf')} download>{strings.download}</a>
+      <a class="button button--primary" href={withBase(pdfPath)} download>{strings.download}</a>
     </div>
   </div>
 
-  {
-    lang === 'es' && (
-      <p class="cv-note no-print">
-        El currículum se mantiene en inglés por ser el idioma de trabajo del sector.
-      </p>
-    )
-  }
-
   <article class="cv">
     <header class="cv__header">
-      <h1>{c.name}</h1>
-      <p class="cv__title">{c.title}</p>
-      <p class="cv__contact">
-        {
-          contactLine.map((item, index) => (
-            <>
-              {index > 0 && <span class="cv__sep" aria-hidden="true"> · </span>}
-              {item.includes('@') ? (
-                <a href={`mailto:${item}`}>{item}</a>
-              ) : (
-                <span>{item}</span>
-              )}
-            </>
-          ))
-        }
-      </p>
+      <div class="cv__identity">
+        <h1>{c.name}</h1>
+        <p class="cv__title">{c.title}</p>
+        <p class="cv__contact">
+          {
+            contactLine.map((item, index) => (
+              <>
+                {index > 0 && <span class="cv__sep" aria-hidden="true"> · </span>}
+                {item.includes('@') ? (
+                  <a href={`mailto:${item}`}>{item}</a>
+                ) : (
+                  <span>{item}</span>
+                )}
+              </>
+            ))
+          }
+        </p>
+      </div>
+      {
+        hasPortrait && (
+          <img
+            class="cv__portrait"
+            src={withBase('/portrait.jpg')}
+            alt={c.name}
+            width="88"
+            height="88"
+            decoding="async"
+          />
+        )
+      }
     </header>
 
     <section class="cv__section">
@@ -184,9 +194,26 @@ const contactLine = [
   }
 
   .cv__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-3);
     padding-bottom: var(--space-3);
     border-bottom: 2px solid var(--color-text);
     margin-bottom: var(--space-3);
+  }
+
+  .cv__identity {
+    min-width: 0;
+  }
+
+  .cv__portrait {
+    flex: 0 0 auto;
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--color-border);
   }
 
   .cv h1 {
@@ -407,6 +434,12 @@ const contactLine = [
     .cv__header {
       padding-bottom: 4pt;
       margin-bottom: 8pt;
+      gap: 6mm;
+    }
+
+    .cv__portrait {
+      width: 22mm;
+      height: 22mm;
     }
 
     .cv__section {
