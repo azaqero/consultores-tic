@@ -9,6 +9,7 @@
     "preview": "astro preview",
     "cv:pdf": "npm run build && node scripts/generate-cv-pdf.mjs",
     "og:image": "node scripts/generate-og.mjs",
+    "verify:deploy": "node scripts/verify-deploy.mjs",
     "astro": "astro"
   },
   "dependencies": {
