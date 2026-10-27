@@ -23,6 +23,19 @@ export type RouteKey = keyof typeof routes;
 
 export const navOrder: RouteKey[] = ['home', 'projects', 'method', 'profile', 'cv', 'contact'];
 
+/**
+ * Routes whose pages actually exist in the build.
+ *
+ * The navigation is derived from this list, so a page that has not been built
+ * yet can never appear as a dead link. Add a route here in the same commit that
+ * adds its pages.
+ */
+export const publishedRoutes: RouteKey[] = ['home', 'profile', 'cv', 'contact'];
+
+export function navItems() {
+  return navOrder.filter((key) => publishedRoutes.includes(key));
+}
+
 export const ui = {
   en: {
     skipToContent: 'Skip to content',

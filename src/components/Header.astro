@@ -1,6 +1,6 @@
 ---
 import type { Lang, RouteKey } from '../i18n/ui';
-import { navOrder, pathFor, t } from '../i18n/ui';
+import { navItems, pathFor, t } from '../i18n/ui';
 
 export interface Props {
   lang: Lang;
@@ -21,7 +21,7 @@ const strings = t(lang);
     <nav aria-label={lang === 'en' ? 'Main' : 'Principal'}>
       <ul class="site-nav">
         {
-          navOrder.map((key) => (
+          navItems().map((key) => (
             <li>
               <a
                 href={pathFor(key, lang)}
