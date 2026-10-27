@@ -1,0 +1,88 @@
+---
+import type { Lang } from '../i18n/ui';
+import { t } from '../i18n/ui';
+
+export interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const strings = t(lang);
+const year = new Date().getFullYear();
+const decisionsUrl = 'https://github.com/azaqero/consultores-tic/tree/main/docs/adr';
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <div>
+      <p class="site-footer__brand">{strings.siteName}</p>
+      <p class="site-footer__tagline">{strings.footer.tagline}</p>
+    </div>
+
+    <ul class="site-footer__links">
+      <li>
+        <a href={decisionsUrl} rel="noopener">{strings.footer.decisions}</a>
+      </li>
+      <li>
+        <a href="mailto:contacto@consultores-tic.com">contacto@consultores-tic.com</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="container">
+    <p class="site-footer__legal">© {year} {strings.siteName}. {strings.footer.rights}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--color-border);
+    padding-block: var(--space-4) var(--space-3);
+    color: var(--color-muted);
+    font-size: 0.9375rem;
+  }
+
+  .site-footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .site-footer__brand {
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 0.15rem;
+  }
+
+  .site-footer__tagline {
+    margin: 0;
+    font-size: 0.875rem;
+  }
+
+  .site-footer__links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .site-footer__links a {
+    color: var(--color-muted);
+    text-decoration: none;
+  }
+
+  .site-footer__links a:hover {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  .site-footer__legal {
+    margin: var(--space-3) 0 0;
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--color-border);
+    font-size: 0.8125rem;
+  }
+</style>

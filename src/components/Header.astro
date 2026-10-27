@@ -1,0 +1,104 @@
+---
+import type { Lang, RouteKey } from '../i18n/ui';
+import { navOrder, pathFor, t } from '../i18n/ui';
+
+export interface Props {
+  lang: Lang;
+  route: RouteKey;
+}
+
+const { lang, route } = Astro.props;
+const strings = t(lang);
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="site-header__brand" href={pathFor('home', lang)}>
+      <span class="site-header__mark" aria-hidden="true">CT</span>
+      <span>{strings.siteName}</span>
+    </a>
+
+    <nav aria-label={lang === 'en' ? 'Main' : 'Principal'}>
+      <ul class="site-nav">
+        {
+          navOrder.map((key) => (
+            <li>
+              <a
+                href={pathFor(key, lang)}
+                aria-current={key === route ? 'page' : undefined}
+              >
+                {strings.nav[key]}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-surface);
+  }
+
+  .site-header__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-3);
+    padding-block: var(--space-2);
+  }
+
+  .site-header__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-weight: 600;
+    color: var(--color-text);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+
+  .site-header__mark {
+    display: inline-grid;
+    place-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: var(--radius);
+    background: var(--color-accent-soft);
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .site-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .site-nav a {
+    font-size: 0.9375rem;
+    color: var(--color-muted);
+    text-decoration: none;
+  }
+
+  .site-nav a:hover {
+    color: var(--color-text);
+  }
+
+  .site-nav a[aria-current='page'] {
+    color: var(--color-text);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.35em;
+    text-decoration-thickness: 2px;
+  }
+</style>

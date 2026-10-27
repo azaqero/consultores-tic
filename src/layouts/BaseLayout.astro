@@ -1,11 +1,28 @@
 ---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import LanguageSwitcher from '../components/LanguageSwitcher.astro';
+import type { Lang, RouteKey } from '../i18n/ui';
+import { pathFor, t } from '../i18n/ui';
+
 export interface Props {
   title: string;
   description: string;
-  lang?: 'en' | 'es';
+  route: RouteKey;
+  lang?: Lang;
+  /** Optional path to an OG image relative to the site root. */
+  ogImage?: string;
 }
 
-const { title, description, lang = 'en' } = Astro.props;
+const { title, description, route, lang = 'en', ogImage = '/og-default.png' } = Astro.props;
+
+const strings = t(lang);
+const site = Astro.site ?? new URL('https://www.consultores-tic.com');
+const canonical = new URL(pathFor(route, lang), site);
+const alternateEn = new URL(pathFor(route, 'en'), site);
+const alternateEs = new URL(pathFor(route, 'es'), site);
+const ogImageUrl = new URL(ogImage, site);
 ---
 
 <!doctype html>
@@ -15,9 +32,48 @@ const { title, description, lang = 'en' } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="canonical" href={canonical} />
+
+    <link rel="alternate" hreflang="en" href={alternateEn} />
+    <link rel="alternate" hreflang="es" href={alternateEs} />
+    <link rel="alternate" hreflang="x-default" href={alternateEn} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={strings.siteName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'es_PE'} />
+    <meta
+      property="og:locale:alternate"
+      content={lang === 'en' ? 'es_PE' : 'en_US'}
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>
   <body>
-    <slot />
+    <a class="skip-link" href="#main">{strings.skipToContent}</a>
+
+    <Header lang={lang} route={route} />
+
+    <div class="container lang-switch-bar">
+      <LanguageSwitcher lang={lang} route={route} />
+    </div>
+
+    <main id="main" class="container">
+      <slot />
+    </main>
+
+    <Footer lang={lang} />
   </body>
 </html>
+
+<style>
+  .lang-switch-bar {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: var(--space-2);
+  }
+</style>
