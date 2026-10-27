@@ -62,10 +62,10 @@ export const home: Record<Lang, HomeContent> = {
       items: [
         {
           name: 'ApiFuel',
-          tagline: 'Lead management at burst scale',
-          body: 'Built in native PHP for performance, migrated to AWS Lambda and API Gateway, then rebuilt in TypeScript with BullMQ and Redis Cluster in 2025. Multiple third-party API integrations on t4g.small instances with smart scaling.',
+          tagline: 'Lead ingestion across a self-provisioning fleet',
+          body: 'Built in native PHP for performance, migrated to AWS Lambda and API Gateway, then rebuilt in TypeScript with BullMQ and Redis Cluster in 2025. Every lead fans out to multiple third-party buyer APIs, so capacity is bound by outbound concurrency rather than request rate.',
           metric:
-            '~10k requests sustained over ~4 minutes under automated load testing, validated against CloudWatch, Bull Board and PgBouncer metrics.',
+            '~10k inbound requests over ~4 minutes under automated load testing, reaching ~30 self-provisioned t4g.small instances (hard cap 50) at ~300 outbound workers each.',
           stack: 'PHP · TypeScript · AWS Lambda · BullMQ · Redis · PostgreSQL',
           url: 'https://apifuel.com',
         },
@@ -135,10 +135,10 @@ export const home: Record<Lang, HomeContent> = {
       items: [
         {
           name: 'ApiFuel',
-          tagline: 'Gestión de leads a escala de picos',
-          body: 'Construido en PHP nativo por rendimiento, migrado a AWS Lambda y API Gateway, y reconstruido en TypeScript con BullMQ y Redis Cluster en 2025. Múltiples integraciones con APIs de terceros sobre instancias t4g.small con escalado automático.',
+          tagline: 'Ingesta de leads sobre una flota auto-provisionada',
+          body: 'Construido en PHP nativo por rendimiento, migrado a AWS Lambda y API Gateway, y reconstruido en TypeScript con BullMQ y Redis Cluster en 2025. Cada lead se distribuye a múltiples APIs de compradores, así que la capacidad la define la concurrencia saliente, no la tasa de peticiones.',
           metric:
-            '~10k peticiones sostenidas durante ~4 minutos en pruebas de carga automatizadas, validadas contra métricas de CloudWatch, Bull Board y PgBouncer.',
+            '~10k peticiones entrantes en ~4 minutos en pruebas de carga automatizadas, alcanzando ~30 instancias t4g.small auto-provisionadas (tope 50) con ~300 workers salientes cada una.',
           stack: 'PHP · TypeScript · AWS Lambda · BullMQ · Redis · PostgreSQL',
           url: 'https://apifuel.com',
         },
