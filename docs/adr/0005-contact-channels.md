@@ -27,13 +27,19 @@ recorded below.
 
 ```
 contacto@consultores-tic.com   published: site, CV, PDF
-contacto@consultores-tic.com    private: never rendered anywhere
+<private mailbox>              never written down in this repository
 ```
 
-The alias forwards to the private mailbox. If it starts receiving spam, a new
-alias is created, the forwarder is repointed, one line changes in `src/config.ts`
-and the site is rebuilt. Nothing migrates, because the private address was never
-exposed.
+The alias forwards to a private mailbox on the same domain. That address is
+deliberately absent from this document: keeping it out of a public repository is
+part of the decision, not an oversight in the write-up.
+
+If the alias starts receiving spam, a new alias is created, the forwarder is
+repointed, one line changes in `src/config.ts` and the site is rebuilt. Nothing
+migrates, because the private address was never exposed.
+
+The commit author address is a GitHub noreply alias for the same reason. It is
+linked to the account, so contributions still count, and it publishes no mailbox.
 
 **Do not publish the phone number.**
 
