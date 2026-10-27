@@ -1,0 +1,239 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import type { Lang } from '../i18n/ui';
+import { pathFor } from '../i18n/ui';
+import { method } from '../content/method';
+
+export interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const c = method[lang];
+const adrUrl = 'https://github.com/azaqero/consultores-tic/tree/main/docs/adr';
+
+const meta = {
+  en: {
+    title: 'How I work — Gustavo Azañero',
+    description:
+      'Spec-driven development, specialized agents and review: the process behind the systems, and the boundary around what gets delegated.',
+  },
+  es: {
+    title: 'Cómo trabajo — Gustavo Azañero',
+    description:
+      'Desarrollo guiado por especificación, agentes especializados y revisión: el proceso detrás de los sistemas y el límite de lo que se delega.',
+  },
+}[lang];
+---
+
+<BaseLayout title={meta.title} description={meta.description} route="method" lang={lang}>
+  <section class="intro">
+    <p class="eyebrow">{c.eyebrow}</p>
+    <h1>{c.headline}</h1>
+    {c.intro.map((paragraph) => <p>{paragraph}</p>)}
+  </section>
+
+  <section class="section" aria-labelledby="loop-title">
+    <header class="section__header">
+      <h2 id="loop-title">{c.loop.title}</h2>
+      <p>{c.loop.intro}</p>
+    </header>
+
+    <ol class="steps">
+      {
+        c.loop.steps.map((step, index) => (
+          <li>
+            <span class="steps__num" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+            <div>
+              <h3>{step.title}</h3>
+              <p>{step.body}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="section" aria-labelledby="division-title">
+    <header class="section__header">
+      <h2 id="division-title">{c.division.title}</h2>
+      <p>{c.division.intro}</p>
+    </header>
+
+    <div class="division">
+      <div class="division__col division__col--ai">
+        <h3>{c.division.ai.title}</h3>
+        <ul>
+          {c.division.ai.items.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+      <div class="division__col division__col--me">
+        <h3>{c.division.me.title}</h3>
+        <ul>
+          {c.division.me.items.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="claims-title">
+    <h2 id="claims-title">{c.claims.title}</h2>
+    <p class="claims">{c.claims.body}</p>
+  </section>
+
+  <section class="section evidence">
+    <div>
+      <h2>{c.evidence.title}</h2>
+      <p>{c.evidence.body}</p>
+    </div>
+    <a class="button" href={adrUrl} rel="noopener">{c.evidence.link} →</a>
+  </section>
+
+  <section class="section closing">
+    <div>
+      <h2>{c.closing.title}</h2>
+      <p>{c.closing.body}</p>
+    </div>
+    <div class="closing__actions">
+      <a class="button button--primary" href={pathFor('contact', lang)}>{c.closing.cta}</a>
+      <a class="button" href={pathFor('cv', lang)}>CV</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .intro {
+    max-width: 46rem;
+    padding-block: var(--space-3) var(--space-5);
+  }
+
+  .intro p {
+    font-size: 1.0625rem;
+  }
+
+  .section {
+    padding-block: var(--space-5);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .section__header {
+    margin-bottom: var(--space-4);
+  }
+
+  .section__header p {
+    color: var(--color-muted);
+    max-width: 52rem;
+  }
+
+  /* Steps */
+  .steps {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: step;
+  }
+
+  .steps li {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    gap: var(--space-2);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .steps li:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .steps__num {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-accent);
+    padding-top: 0.2rem;
+  }
+
+  .steps h3 {
+    font-size: 1.0625rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .steps p {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--color-muted);
+    max-width: 62ch;
+  }
+
+  /* Division */
+  .division {
+    display: grid;
+    gap: var(--space-3);
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  }
+
+  .division__col {
+    padding: var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+  }
+
+  .division__col--me {
+    border-color: var(--color-accent);
+    background: var(--color-accent-soft);
+  }
+
+  .division__col h3 {
+    font-size: 0.9375rem;
+    margin-bottom: var(--space-2);
+  }
+
+  .division__col ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    font-size: 0.9375rem;
+    color: var(--color-muted);
+  }
+
+  .division__col li {
+    margin-bottom: 0.4rem;
+  }
+
+  .claims {
+    font-size: 1.0625rem;
+    max-width: 62ch;
+    padding-left: var(--space-3);
+    border-left: 3px solid var(--color-accent);
+  }
+
+  .evidence,
+  .closing {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .evidence h2,
+  .closing h2 {
+    font-size: var(--step-1);
+    margin-bottom: 0.25rem;
+  }
+
+  .evidence p,
+  .closing p {
+    margin: 0;
+    color: var(--color-muted);
+    max-width: 46rem;
+  }
+
+  .closing__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+</style>
