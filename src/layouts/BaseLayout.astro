@@ -14,9 +14,11 @@ export interface Props {
   lang?: Lang;
   /** Optional path to an OG image relative to the site root. */
   ogImage?: string;
+  /** Keep a page out of the index and drop its canonical. Used by the 404. */
+  noindex?: boolean;
 }
 
-const { title, description, route, lang = 'en', ogImage = '/og-default.png' } = Astro.props;
+const { title, description, route, lang = 'en', ogImage = '/og-default.png', noindex = false } = Astro.props;
 
 const strings = t(lang);
 const site = Astro.site ?? new URL('https://www.consultores-tic.com');
@@ -33,7 +35,11 @@ const ogImageUrl = new URL(ogImage, site);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {noindex ? (
+      <meta name="robots" content="noindex, follow" />
+    ) : (
+      <link rel="canonical" href={canonical} />
+    )}
 
     <link rel="alternate" hreflang="en" href={alternateEn} />
     <link rel="alternate" hreflang="es" href={alternateEs} />
