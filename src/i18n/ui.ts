@@ -105,5 +105,5 @@ export function otherLang(lang: Lang): Lang {
 }
 
 export function counterpart(route: RouteKey, lang: Lang): string {
-  return routes[route][otherLang(lang)];
+  return withBase(routes[route][otherLang(lang)]);
 }
