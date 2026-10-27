@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import type { Lang } from '../i18n/ui';
+import { pathFor } from '../i18n/ui';
+import { contact } from '../content/contact';
+
+export interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const c = contact[lang];
+
+const meta = {
+  en: {
+    title: 'Contact — Gustavo Azañero, Consultores TIC',
+    description:
+      'Get in touch about senior backend roles or specific projects. Direct email, no forms.',
+  },
+  es: {
+    title: 'Contacto — Gustavo Azañero, Consultores TIC',
+    description:
+      'Escribime por posiciones senior de backend o proyectos puntuales. Correo directo, sin formularios.',
+  },
+}[lang];
+---
+
+<BaseLayout title={meta.title} description={meta.description} route="contact" lang={lang}>
+  <section class="contact">
+    <div class="contact__intro">
+      <p class="eyebrow">{c.eyebrow}</p>
+      <h1>{c.headline}</h1>
+      {c.intro.map((paragraph) => <p>{paragraph}</p>)}
+
+      <div class="contact__actions">
+        <a class="button button--primary" href={`mailto:contacto@consultores-tic.com`}>
+          contacto@consultores-tic.com
+        </a>
+        <a class="button" href={pathFor('cv', lang)}>{c.cvCta}</a>
+      </div>
+    </div>
+
+    <aside class="contact__details">
+      <dl>
+        {
+          c.details.map((detail) => (
+            <div>
+              <dt>{detail.label}</dt>
+              <dd>
+                {detail.href ? <a href={detail.href}>{detail.value}</a> : detail.value}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+      <p class="contact__note">{c.note}</p>
+    </aside>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact {
+    display: grid;
+    gap: var(--space-5);
+    grid-template-columns: 1.3fr 1fr;
+    align-items: start;
+    padding-block: var(--space-3);
+  }
+
+  @media (width < 52rem) {
+    .contact {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .contact__intro {
+    max-width: 38rem;
+  }
+
+  .contact__intro p {
+    font-size: 1.0625rem;
+  }
+
+  .contact__intro h1 {
+    margin-bottom: var(--space-2);
+  }
+
+  .contact__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+  }
+
+  .contact__details {
+    padding: var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+  }
+
+  .contact__details dl {
+    margin: 0;
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .contact__details dt {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin-bottom: 0.15rem;
+  }
+
+  .contact__details dd {
+    margin: 0;
+    font-size: 0.9375rem;
+  }
+
+  .contact__note {
+    margin: var(--space-3) 0 0;
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--color-border);
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+  }
+</style>
