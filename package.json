@@ -11,6 +11,7 @@
     "cv:pdf": "npm run build && node scripts/generate-cv-pdf.mjs",
     "og:image": "node scripts/generate-og.mjs",
     "verify:deploy": "node scripts/verify-deploy.mjs",
+    "check:leaks": "node scripts/check-leaks.mjs",
     "astro": "astro"
   },
   "dependencies": {

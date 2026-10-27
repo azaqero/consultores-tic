@@ -20,7 +20,7 @@ Confirm before continuing:
 
 | Check | Command | Expected |
 | --- | --- | --- |
-| No personal data in the build | `grep -ril "<private-email>\|<private-phone>" dist/ public/` | no output |
+| No personal data in the build | `npm run check:leaks` | "Clean: N files scanned" |
 | No dead internal links | see `scripts/verify-deploy.mjs` | 0 failures |
 | Build size | `du -sh dist` | under 1 MB |
 | Critical files present | `ls dist/.htaccess dist/404.html dist/sitemap.xml dist/cv.pdf` | all present |
