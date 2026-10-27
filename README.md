@@ -45,6 +45,7 @@ The routing decision is documented in
 
 ## Deployment
 
-See [ADR 0004](docs/adr/0004-deployment-and-rollback.md). The site is published to
-shared hosting over cPanel, with a documented rollback path to the previous
-WordPress installation.
+See [ADR 0004](docs/adr/0004-deployment-and-rollback.md). The build is uploaded to
+Linux shared hosting (reseller account under `consultores-tic.net`), with a
+documented rollback path to the previous WordPress installation. The server never
+builds: it only serves files.
