@@ -1,0 +1,249 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import type { Lang } from '../i18n/ui';
+import { pathFor } from '../i18n/ui';
+import { home } from '../content/home';
+
+export interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const c = home[lang];
+
+const meta = {
+  en: {
+    title: 'Consultores TIC — Senior Software Engineer, Backend & Distributed Systems',
+    description:
+      '18 years building and operating backend systems, APIs and queued processing. PHP, Node.js/TypeScript, AWS.',
+  },
+  es: {
+    title: 'Consultores TIC — Ingeniero de Software Senior, Backend y Sistemas Distribuidos',
+    description:
+      '18 años construyendo y operando sistemas backend, APIs y procesamiento por colas. PHP, Node.js/TypeScript, AWS.',
+  },
+}[lang];
+
+const email = 'contacto@consultores-tic.com';
+---
+
+<BaseLayout title={meta.title} description={meta.description} route="home" lang={lang}>
+  <section class="hero">
+    <p class="eyebrow">{c.eyebrow}</p>
+    <h1>{c.headline}</h1>
+    <p class="hero__lede">{c.lede}</p>
+    <p>{c.intro}</p>
+
+    <div class="hero__actions">
+      <a class="button button--primary" href="#work">{c.primaryCta}</a>
+      <a class="button" href={pathFor('cv', lang)}>{c.secondaryCta}</a>
+    </div>
+
+    <p class="hero__availability">{c.availability}</p>
+  </section>
+
+  <section id="work" class="section" aria-labelledby="work-title">
+    <header class="section__header">
+      <h2 id="work-title">{c.work.title}</h2>
+      <p>{c.work.intro}</p>
+    </header>
+
+    <ul class="cards">
+      {
+        c.work.items.map((item) => (
+          <li class="card">
+            <h3>{item.name}</h3>
+            <p class="card__tagline">{item.tagline}</p>
+            <p>{item.body}</p>
+            {item.metric && <p class="card__metric">{item.metric}</p>}
+            <p class="card__stack">{item.stack}</p>
+            {item.url && (
+              <a class="card__link" href={item.url} rel="noopener">
+                {item.url.replace(/^https?:\/\//, '')}
+              </a>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="section__more">
+      <a href={pathFor('projects', lang)}>{c.work.allProjects} →</a>
+    </p>
+  </section>
+
+  <section class="section" aria-labelledby="capabilities-title">
+    <header class="section__header">
+      <h2 id="capabilities-title">{c.capabilities.title}</h2>
+    </header>
+
+    <ul class="capabilities">
+      {
+        c.capabilities.items.map((item) => (
+          <li>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="section split" aria-labelledby="method-title">
+    <div>
+      <h2 id="method-title">{c.method.title}</h2>
+      <p>{c.method.body}</p>
+      <p><a href={pathFor('method', lang)}>{c.method.cta} →</a></p>
+    </div>
+
+    <aside class="contact-card">
+      <h2>{c.contact.title}</h2>
+      <p>{c.contact.body}</p>
+      <a class="button button--primary" href={`mailto:${email}`}>{email}</a>
+    </aside>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: var(--space-4) var(--space-6);
+    max-width: 46rem;
+  }
+
+  .hero__lede {
+    font-size: var(--step-1);
+    color: var(--color-text);
+    max-width: 44rem;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+  }
+
+  .hero__availability {
+    margin-top: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+  }
+
+  .section {
+    padding-block: var(--space-5);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .section__header {
+    margin-bottom: var(--space-4);
+  }
+
+  .section__header p {
+    color: var(--color-muted);
+    max-width: 52rem;
+  }
+
+  .section__more {
+    margin-top: var(--space-4);
+  }
+
+  .cards {
+    display: grid;
+    gap: var(--space-3);
+    grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: var(--space-3);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+  }
+
+  .card h3 {
+    margin: 0;
+  }
+
+  .card p {
+    margin: 0;
+    font-size: 0.9375rem;
+    max-width: none;
+  }
+
+  .card__tagline {
+    color: var(--color-muted);
+    font-size: 0.875rem;
+  }
+
+  .card__metric {
+    padding: var(--space-1) var(--space-2);
+    border-left: 3px solid var(--color-accent);
+    background: var(--color-accent-soft);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    font-size: 0.875rem;
+  }
+
+  .card__stack {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-muted);
+    margin-top: auto;
+    padding-top: var(--space-1);
+  }
+
+  .card__link {
+    font-size: 0.875rem;
+    align-self: flex-start;
+  }
+
+  .capabilities {
+    display: grid;
+    gap: var(--space-3);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .capabilities h3 {
+    font-size: var(--step-0);
+    margin-bottom: 0.35rem;
+  }
+
+  .capabilities p {
+    font-size: 0.9375rem;
+    color: var(--color-muted);
+    max-width: none;
+  }
+
+  .split {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: 1.4fr 1fr;
+    align-items: start;
+  }
+
+  @media (width < 48rem) {
+    .split {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .contact-card {
+    padding: var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+  }
+
+  .contact-card h2 {
+    font-size: var(--step-1);
+  }
+</style>
