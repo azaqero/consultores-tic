@@ -55,7 +55,7 @@ export const cv: Record<Lang, CvContent> = {
       site: 'consultores-tic.com',
     },
     summary: [
-      'Senior software engineer with 18+ years building and operating backend products and APIs used by real customers. Production experience in PHP and Node.js/TypeScript, AWS (Lambda, API Gateway, EC2, RDS), queue-based processing (BullMQ, Redis) and third-party API integrations (Twilio, Stripe, FTC).',
+      'Senior software engineer building and operating backend products and APIs used by real customers since 2008. Production experience in PHP and Node.js/TypeScript, AWS (Lambda, API Gateway, EC2, RDS), queue-based processing (BullMQ, Redis) and third-party API integrations (Twilio, Stripe, FTC).',
       'I work spec-first with specialized coding agents across several model providers, choosing each model by cost and quality. I review, test and take responsibility for everything I ship. I own products end to end — infrastructure through production support. Available full-time, 100% remote.',
     ],
     selectedWork: [
@@ -98,7 +98,7 @@ export const cv: Record<Lang, CvContent> = {
       },
       {
         label: 'Also',
-        items: 'WordPress and WooCommerce (18+ years), Git and GitHub',
+        items: 'WordPress and WooCommerce (since 2008), Git and GitHub',
       },
     ],
     experience: [
@@ -164,7 +164,7 @@ export const cv: Record<Lang, CvContent> = {
       site: 'consultores-tic.com',
     },
     summary: [
-      'Ingeniero de software senior con más de 18 años construyendo y operando productos backend y APIs usados por clientes reales. Experiencia en producción con PHP y Node.js/TypeScript, AWS (Lambda, API Gateway, EC2, RDS), procesamiento por colas (BullMQ, Redis) e integraciones con APIs de terceros (Twilio, Stripe, FTC).',
+      'Ingeniero de software senior construyendo y operando productos backend y APIs usados por clientes reales desde 2008. Experiencia en producción con PHP y Node.js/TypeScript, AWS (Lambda, API Gateway, EC2, RDS), procesamiento por colas (BullMQ, Redis) e integraciones con APIs de terceros (Twilio, Stripe, FTC).',
       'Trabajo con especificación previa y agentes especializados en varios proveedores de modelos, eligiendo cada modelo por costo y calidad. Reviso, pruebo y respondo por todo lo que publico. Me hago cargo de los productos de punta a punta: desde la infraestructura hasta el soporte en producción. Disponible full-time, 100% remoto.',
     ],
     selectedWork: [
@@ -207,7 +207,7 @@ export const cv: Record<Lang, CvContent> = {
       },
       {
         label: 'Además',
-        items: 'WordPress y WooCommerce (más de 18 años), Git y GitHub',
+        items: 'WordPress y WooCommerce (desde 2008), Git y GitHub',
       },
     ],
     experience: [

@@ -48,7 +48,7 @@ export const home: Record<Lang, HomeContent> = {
   en: {
     eyebrow: 'Senior Software Engineer · Backend & Distributed Systems',
     headline: 'I build backend systems that hold up under real traffic.',
-    lede: '18 years designing APIs, queues and infrastructure for production systems — and I measure what I claim.',
+    lede: 'Since 2008, designing APIs, queues and infrastructure for production systems — and I measure what I claim.',
     intro:
       'Production experience in PHP and Node.js/TypeScript, AWS, queue-based processing and third-party integrations. I own products end to end, from infrastructure to technical support, and I take responsibility for everything I ship.',
     primaryCta: 'See selected work',
@@ -121,7 +121,7 @@ export const home: Record<Lang, HomeContent> = {
   es: {
     eyebrow: 'Ingeniero de Software Senior · Backend y Sistemas Distribuidos',
     headline: 'Construyo sistemas backend que aguantan tráfico real.',
-    lede: '18 años diseñando APIs, colas e infraestructura para sistemas en producción — y mido lo que afirmo.',
+    lede: 'Desde 2008, diseñando APIs, colas e infraestructura para sistemas en producción — y mido lo que afirmo.',
     intro:
       'Experiencia en producción con PHP y Node.js/TypeScript, AWS, procesamiento por colas e integraciones con terceros. Me hago cargo de los productos de punta a punta, desde la infraestructura hasta el soporte técnico, y respondo por todo lo que publico.',
     primaryCta: 'Ver trabajos seleccionados',

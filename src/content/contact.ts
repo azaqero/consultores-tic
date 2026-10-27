@@ -22,7 +22,7 @@ export const contact: Record<Lang, ContactContent> = {
     headline: 'Let’s talk.',
     intro: [
       'I am open to senior backend roles — full-time and fully remote — and to specific projects where the problem is a system that has to hold up under real load.',
-      'The short version of the last 18 years is one document away. The longer version is the profile page, or a conversation.',
+      'The short version of the work since 2008 is one document away. The longer version is the profile page, or a conversation.',
     ],
     details: [
       {
@@ -47,7 +47,7 @@ export const contact: Record<Lang, ContactContent> = {
     headline: 'Hablemos.',
     intro: [
       'Estoy abierto a posiciones senior de backend — full-time y completamente remoto — y a proyectos puntuales donde el problema sea un sistema que tenga que aguantar carga real.',
-      'La versión corta de los últimos 18 años está a un documento de distancia. La versión larga es la página de perfil, o una conversación.',
+      'La versión corta del trabajo desde 2008 está a un documento de distancia. La versión larga es la página de perfil, o una conversación.',
     ],
     details: [
       {

@@ -37,7 +37,7 @@ const pages = [
 ];
 
 /** Numeric claims that must be identical in both languages. */
-const REQUIRED_TOKENS = ['18', '~10k', '~4', '~30', '~300', '50'];
+const REQUIRED_TOKENS = ['2008', '~10k', '~4', '~30', '~300', '50'];
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',

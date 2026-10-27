@@ -51,7 +51,7 @@ export const profile: Record<Lang, ProfileContent> = {
     eyebrow: 'Profile',
     headline: identity.displayName,
     intro: [
-      'I am a backend engineer. For 18 years I have built and operated systems that other people depend on — lead engines that fan out to dozens of buyer APIs, content platforms, telephony integrations, management systems.',
+      'I am a backend engineer. Since 2008 I have built and operated systems that other people depend on — lead engines that fan out to dozens of buyer APIs, content platforms, telephony integrations, management systems.',
       'I run Consultores TIC, a small software and hosting company. That means I have never had the option of handing a problem to another team: infrastructure, deployment, monitoring, support and the customer conversation are all mine. It is not a career path I would recommend to everyone, but it removes any gap between what I build and what I have to keep alive.',
       'I work spec-first and I use AI agents to move faster. I decide what to build, how it is structured, and whether it holds. That distinction matters to me and I keep it explicit.',
     ],
@@ -148,7 +148,7 @@ export const profile: Record<Lang, ProfileContent> = {
     eyebrow: 'Perfil',
     headline: identity.displayName,
     intro: [
-      'Soy ingeniero backend. Hace 18 años construyo y opero sistemas de los que dependen otras personas — motores de leads que se distribuyen a decenas de APIs de compradores, plataformas de contenido, integraciones de telefonía, sistemas de gestión.',
+      'Soy ingeniero backend. Desde 2008 construyo y opero sistemas de los que dependen otras personas — motores de leads que se distribuyen a decenas de APIs de compradores, plataformas de contenido, integraciones de telefonía, sistemas de gestión.',
       'Dirijo Consultores TIC, una empresa chica de software y hosting. Eso significa que nunca tuve la opción de pasarle un problema a otro equipo: la infraestructura, el despliegue, el monitoreo, el soporte y la conversación con el cliente son míos. No es un camino que le recomendaría a todo el mundo, pero elimina cualquier distancia entre lo que construyo y lo que tengo que mantener vivo.',
       'Trabajo con especificación previa y uso agentes de IA para avanzar más rápido. Yo decido qué construir, cómo estructurarlo y si resiste. Esa distinción me importa y la mantengo explícita.',
     ],
