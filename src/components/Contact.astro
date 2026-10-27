@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import type { Lang } from '../i18n/ui';
+import { identity } from '../config';
 import { pathFor } from '../i18n/ui';
 import { contact } from '../content/contact';
 
@@ -13,12 +14,12 @@ const c = contact[lang];
 
 const meta = {
   en: {
-    title: 'Contact — Gustavo Azañero, Consultores TIC',
+    title: `Contact — ${identity.displayName}, Consultores TIC`,
     description:
       'Get in touch about senior backend roles or specific projects. Direct email, no forms.',
   },
   es: {
-    title: 'Contacto — Gustavo Azañero, Consultores TIC',
+    title: `Contacto — ${identity.displayName}, Consultores TIC`,
     description:
       'Escribime por posiciones senior de backend o proyectos puntuales. Correo directo, sin formularios.',
   },

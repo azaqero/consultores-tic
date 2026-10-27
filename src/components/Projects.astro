@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import type { Lang } from '../i18n/ui';
+import { identity } from '../config';
 import { projects } from '../content/projects';
 
 export interface Props {
@@ -12,12 +13,12 @@ const c = projects[lang];
 
 const meta = {
   en: {
-    title: 'Projects — Gustavo Azañero, Consultores TIC',
+    title: `Projects — ${identity.displayName}, Consultores TIC`,
     description:
       'ApiFuel, ArticleAI, DialReveal and Opticaz: the constraint behind each system, the choices made and what those choices cost.',
   },
   es: {
-    title: 'Proyectos — Gustavo Azañero, Consultores TIC',
+    title: `Proyectos — ${identity.displayName}, Consultores TIC`,
     description:
       'ApiFuel, ArticleAI, DialReveal y Opticaz: la restricción detrás de cada sistema, las decisiones tomadas y lo que costaron.',
   },

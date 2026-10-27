@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import type { Lang } from '../i18n/ui';
+import { identity } from '../config';
 import { cv } from '../content/cv';
 
 export interface Props {
@@ -38,12 +39,12 @@ const strings = {
 
 const meta = {
   en: {
-    title: 'CV — Gustavo Azañero, Senior Software Engineer',
+    title: `CV — ${identity.displayName}, Senior Software Engineer`,
     description:
       'Curriculum vitae: 18 years of backend engineering, APIs, queued processing and AWS infrastructure.',
   },
   es: {
-    title: 'CV — Gustavo Azañero, Ingeniero de Software Senior',
+    title: `CV — ${identity.displayName}, Ingeniero de Software Senior`,
     description:
       'Currículum: 18 años de ingeniería backend, APIs, procesamiento por colas e infraestructura AWS.',
   },

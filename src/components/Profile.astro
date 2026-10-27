@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import type { Lang } from '../i18n/ui';
+import { identity } from '../config';
 import { pathFor } from '../i18n/ui';
 import { profile } from '../content/profile';
 
@@ -13,12 +14,12 @@ const c = profile[lang];
 
 const meta = {
   en: {
-    title: 'Profile — Gustavo Azañero, Consultores TIC',
+    title: `Profile — ${identity.displayName}, Consultores TIC`,
     description:
       'Backend engineer with 18 years building and operating production systems. How the stack evolved across three architectures and what I build today.',
   },
   es: {
-    title: 'Perfil — Gustavo Azañero, Consultores TIC',
+    title: `Perfil — ${identity.displayName}, Consultores TIC`,
     description:
       'Ingeniero backend con 18 años construyendo y operando sistemas en producción. Cómo evolucionó el stack en tres arquitecturas y qué construyo hoy.',
   },

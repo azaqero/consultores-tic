@@ -8,6 +8,8 @@
  * state what was measured and under which conditions.
  */
 
+import { identity } from '../config';
+
 export interface CvJob {
   role: string;
   company: string;
@@ -39,7 +41,7 @@ export interface CvContent {
 }
 
 export const cv: CvContent = {
-  name: 'Gustavo Adolfo Azañero Inope',
+  name: identity.displayName,
   title: 'Senior Software Engineer | Backend Products, APIs & AI-Assisted Development',
   contact: {
     location: 'Lambayeque, Peru (GMT-5)',
