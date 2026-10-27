@@ -156,7 +156,7 @@ const email = identity.publicEmail;
   .cards {
     display: grid;
     gap: var(--space-3);
-    grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(19rem, 100%), 1fr));
     margin: 0;
     padding: 0;
     list-style: none;
@@ -211,7 +211,7 @@ const email = identity.publicEmail;
   .capabilities {
     display: grid;
     gap: var(--space-3);
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
     margin: 0;
     padding: 0;
     list-style: none;

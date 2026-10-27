@@ -203,7 +203,7 @@ const meta = {
   .products {
     display: grid;
     gap: var(--space-3);
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
     margin: 0;
     padding: 0;
     list-style: none;
@@ -258,7 +258,7 @@ const meta = {
   .principles {
     display: grid;
     gap: var(--space-3);
-    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
     margin: 0;
     padding: 0;
     list-style: none;

@@ -8,6 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "cv:pdf": "npm run build && node scripts/generate-cv-pdf.mjs",
+    "og:image": "node scripts/generate-og.mjs",
     "astro": "astro"
   },
   "dependencies": {

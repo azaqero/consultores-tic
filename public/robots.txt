@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# No crawl-delay: the site is static and served from a single directory.
+
+Sitemap: https://www.consultores-tic.com/sitemap.xml

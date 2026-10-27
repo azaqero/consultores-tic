@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="404 — Page not found | Consultores TIC"
+  description="This page does not exist. / Esta página no existe."
+  route="home"
+  lang="en"
+>
+  <section class="notfound">
+    <p class="eyebrow">404</p>
+    <h1>This page doesn’t exist.</h1>
+    <p>
+      It may have been part of the old site. The current one has a different
+      structure.
+    </p>
+    <p>
+      <a href="/">Home</a> · <a href="/projects/">Projects</a> ·
+      <a href="/profile/">Profile</a> · <a href="/contact/">Contact</a>
+    </p>
+
+    <hr />
+
+    <p lang="es"><strong>Esta página no existe.</strong></p>
+    <p lang="es">
+      Puede haber sido parte del sitio anterior. El actual tiene otra estructura.
+    </p>
+    <p lang="es">
+      <a href="/es/">Inicio</a> · <a href="/es/proyectos/">Proyectos</a> ·
+      <a href="/es/perfil/">Perfil</a> · <a href="/es/contacto/">Contacto</a>
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .notfound {
+    max-width: 40rem;
+    padding-block: var(--space-5);
+  }
+
+  .notfound hr {
+    border: 0;
+    border-top: 1px solid var(--color-border);
+    margin: var(--space-4) 0;
+  }
+
+  .notfound p {
+    color: var(--color-muted);
+  }
+</style>

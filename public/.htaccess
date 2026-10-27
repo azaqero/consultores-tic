@@ -1,0 +1,73 @@
+# Apache configuration for consultores-tic.com
+#
+# Deployed as-is to the document root. Read docs/adr/0004-deployment-and-rollback.md
+# before touching this file: a bad rule breaks the whole site, and rollback means
+# restoring the previous file from the archive directory.
+#
+# Redirect strategy:
+#   301 — the page still exists, at a new address.
+#   410 — the page was deliberately removed and is not coming back.
+#
+# The 1,133 legacy blog posts from 2017–2020 are gone on purpose. Redirecting
+# them all to the homepage would be a soft-404 signal to search engines; 410
+# tells them to drop the URLs. See docs/adr/0005-contact-channels.md for the
+# sibling decision about not keeping legacy surfaces alive.
+
+# --- Canonical host and scheme ------------------------------------------------
+# Both rules point at https://www.consultores-tic.com. Email is unaffected:
+# DNS is untouched and MX records do not pass through here.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^(.*)$ https://www.consultores-tic.com/$1 [R=301,L]
+
+  RewriteCond %{HTTP_HOST} !^www\.consultores-tic\.com$ [NC]
+  RewriteRule ^(.*)$ https://www.consultores-tic.com/$1 [R=301,L]
+</IfModule>
+
+# --- WordPress leftovers: gone, permanently (410) -----------------------------
+
+RedirectMatch 410 ^/wp-(admin|content|includes|json|login\.php|cron\.php|sitemap)
+RedirectMatch 410 ^/(en|es)/20[0-9]{2}/
+RedirectMatch 410 ^/(en|es)/(author|category|tag|catportfolio|tagportfolio|comments)/
+RedirectMatch 410 ^/(en|es)/(blog|blog-espanol)/?$
+RedirectMatch 410 ^/(feed|comments)/
+RedirectMatch 410 ^/(xmlrpc\.php|wp-login\.php)$
+
+# --- Legacy pages with a current equivalent (301) -----------------------------
+
+RedirectMatch 301 ^/en/?$ /
+RedirectMatch 301 ^/en/about-us/?$ /profile/
+RedirectMatch 301 ^/en/contact-us/?$ /contact/
+RedirectMatch 301 ^/en/portfolio/?$ /projects/
+RedirectMatch 301 ^/en/services(/.*)?$ /projects/
+
+RedirectMatch 301 ^/es/nosotros/?$ /es/perfil/
+RedirectMatch 301 ^/es/contactanos/?$ /es/contacto/
+RedirectMatch 301 ^/es/portafolio/?$ /es/proyectos/
+RedirectMatch 301 ^/es/servicios(/.*)?$ /es/proyectos/
+
+# The old /en/ homepage had no Spanish counterpart at the root; the new site
+# serves English at / and Spanish at /es/, so /es/ needs no redirect.
+
+# --- Compression and caching --------------------------------------------------
+# Static assets are content-hashed under /_astro/, so they can be cached hard.
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/javascript application/json image/svg+xml
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType text/html "access plus 1 hour"
+</IfModule>
+
+# --- Custom error page --------------------------------------------------------
+
+ErrorDocument 404 /404.html
