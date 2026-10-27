@@ -9,6 +9,11 @@
  * src/components/Cv.astro. This script prints those pages with headless Chrome,
  * so a PDF can never drift from the HTML it came from.
  *
+ * Chrome prints over a local HTTP server rather than file://. Under file://, an
+ * absolute asset path such as /portrait.jpg resolves to the filesystem root and
+ * silently fails, and Chrome prints its broken-image placeholder into the PDF
+ * at 14x16 pixels. Serving the build keeps every absolute path meaningful.
+ *
  * It also fails the build when the two languages disagree. Two CVs that say
  * different things are worse than one CV: the guard compares bullet counts and
  * requires every numeric claim to appear in both.
@@ -16,24 +21,36 @@
  * Requirements: a `google-chrome`, `chromium` or `chromium-browser` binary.
  * Usage: npm run cv:pdf   (runs the build first)
  */
-import { spawnSync } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import { copyFileSync, existsSync, mkdirSync, readFileSync, statSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
+import { readFile } from 'node:fs/promises';
+import { createServer } from 'node:http';
+import { dirname, extname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const distRoot = join(root, 'dist');
 
-const targets = [
-  { label: 'en', source: join(root, 'dist', 'cv', 'index.html'), output: join(root, 'public', 'cv.pdf') },
-  {
-    label: 'es',
-    source: join(root, 'dist', 'es', 'cv', 'index.html'),
-    output: join(root, 'public', 'es', 'cv.pdf'),
-  },
+const pages = [
+  { label: 'en', path: '/cv/', output: join(root, 'public', 'cv.pdf') },
+  { label: 'es', path: '/es/cv/', output: join(root, 'public', 'es', 'cv.pdf') },
 ];
 
 /** Numeric claims that must be identical in both languages. */
 const REQUIRED_TOKENS = ['18', '~10k', '~4', '~30', '~300', '50'];
+
+const MIME = {
+  '.html': 'text/html; charset=utf-8',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.png': 'image/png',
+  '.svg': 'image/svg+xml',
+  '.css': 'text/css; charset=utf-8',
+  '.js': 'text/javascript; charset=utf-8',
+  '.pdf': 'application/pdf',
+  '.xml': 'application/xml',
+  '.txt': 'text/plain; charset=utf-8',
+};
 
 const candidates = ['google-chrome', 'google-chrome-stable', 'chromium', 'chromium-browser'];
 
@@ -59,14 +76,15 @@ function visibleText(html) {
 const texts = {};
 const bulletCounts = {};
 
-for (const target of targets) {
-  if (!existsSync(target.source)) {
-    console.error(`Missing ${target.source}. Run "npm run build" first (or use "npm run cv:pdf").`);
+for (const page of pages) {
+  const file = join(distRoot, page.path, 'index.html');
+  if (!existsSync(file)) {
+    console.error(`Missing ${file}. Run "npm run build" first (or use "npm run cv:pdf").`);
     process.exit(1);
   }
-  const html = readFileSync(target.source, 'utf8');
-  texts[target.label] = visibleText(html);
-  bulletCounts[target.label] = (html.match(/<li>/g) || []).length;
+  const html = readFileSync(file, 'utf8');
+  texts[page.label] = visibleText(html);
+  bulletCounts[page.label] = (html.match(/<li>/g) || []).length;
 }
 
 const problems = [];
@@ -79,7 +97,8 @@ for (const token of REQUIRED_TOKENS) {
   const inEn = texts.en.includes(token);
   const inEs = texts.es.includes(token);
   if (!inEn || !inEs) {
-    problems.push(`claim "${token}" missing from ${!inEn ? 'en' : ''}${!inEn && !inEs ? ' and ' : ''}${!inEs ? 'es' : ''}`);
+    const missing = [!inEn ? 'en' : '', !inEs ? 'es' : ''].filter(Boolean).join(' and ');
+    problems.push(`claim "${token}" missing from ${missing}`);
   }
 }
 
@@ -98,40 +117,88 @@ if (!chrome) {
   process.exit(1);
 }
 
-for (const target of targets) {
-  mkdirSync(dirname(target.output), { recursive: true });
-
-  const args = [
-    '--headless=new',
-    '--disable-gpu',
-    '--no-sandbox',
-    '--no-pdf-header-footer',
-    '--run-all-compositor-stages-before-draw',
-    '--virtual-time-budget=4000',
-    `--print-to-pdf=${target.output}`,
-    `file://${target.source}`,
-  ];
-
-  const result = spawnSync(chrome, args, { encoding: 'utf8' });
-
-  if (result.status !== 0) {
-    console.error(result.stderr || result.stdout || 'Chrome exited with a non-zero status.');
-    process.exit(result.status ?? 1);
-  }
-
-  if (!existsSync(target.output)) {
-    console.error(`Chrome reported success but wrote no PDF for ${target.label}.`);
-    process.exit(1);
-  }
-
-  const { size } = statSync(target.output);
-  console.log(`Wrote ${target.output} (${(size / 1024).toFixed(1)} KB)`);
-
-  // `npm run build` runs before this script, so it copied the *previous* PDF
-  // into dist/. Without this copy, the deployed file is one generation behind.
-  const distCopy = target.output.replace(join(root, 'public'), join(root, 'dist'));
-  copyFileSync(target.output, distCopy);
-  console.log(`Synced ${distCopy}`);
+/**
+ * Run Chrome without blocking the event loop.
+ *
+ * spawnSync would deadlock here: the static server that serves the page runs in
+ * this same process, so blocking Node means Chrome never receives the HTML it is
+ * waiting for, while this process waits for Chrome to exit.
+ */
+function runChrome(args) {
+  return new Promise((resolve) => {
+    const child = spawn(chrome, args, { stdio: ['ignore', 'pipe', 'pipe'] });
+    let stderr = '';
+    child.stderr.on('data', (chunk) => {
+      stderr += chunk.toString();
+    });
+    const timer = setTimeout(() => {
+      child.kill('SIGKILL');
+    }, 60_000);
+    child.on('close', (code) => {
+      clearTimeout(timer);
+      resolve({ code, stderr });
+    });
+  });
 }
 
-console.log(`Drift check passed: ${bulletCounts.en} list items per language, ${REQUIRED_TOKENS.length} claims matched.`);
+const server = createServer(async (req, res) => {
+  try {
+    const urlPath = decodeURIComponent((req.url || '/').split('?')[0]);
+    let filePath = join(distRoot, urlPath);
+    if (urlPath.endsWith('/')) filePath = join(filePath, 'index.html');
+    const data = await readFile(filePath);
+    res.writeHead(200, { 'Content-Type': MIME[extname(filePath)] || 'application/octet-stream' });
+    res.end(data);
+  } catch {
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    res.end('not found');
+  }
+});
+
+await new Promise((r) => server.listen(0, '127.0.0.1', r));
+const { port } = server.address();
+
+try {
+  for (const page of pages) {
+    mkdirSync(dirname(page.output), { recursive: true });
+
+    const args = [
+      '--headless=new',
+      '--disable-gpu',
+      '--no-sandbox',
+      '--no-pdf-header-footer',
+      '--run-all-compositor-stages-before-draw',
+      '--virtual-time-budget=5000',
+      `--print-to-pdf=${page.output}`,
+      `http://127.0.0.1:${port}${page.path}`,
+    ];
+
+    const result = await runChrome(args);
+
+    if (result.code !== 0) {
+      console.error(result.stderr || `Chrome exited with status ${result.code}.`);
+      process.exit(result.code ?? 1);
+    }
+
+    if (!existsSync(page.output)) {
+      console.error(`Chrome reported success but wrote no PDF for ${page.label}.`);
+      process.exit(1);
+    }
+
+    const { size } = statSync(page.output);
+    console.log(`Wrote ${page.output} (${(size / 1024).toFixed(1)} KB)`);
+
+    // `npm run build` runs before this script, so it copied the *previous* PDF
+    // into dist/. Without this copy, the deployed file is one generation behind.
+    const distCopy = page.output.replace(join(root, 'public'), distRoot);
+    copyFileSync(page.output, distCopy);
+    console.log(`Synced ${distCopy}`);
+  }
+} finally {
+  server.closeAllConnections?.();
+  server.close();
+}
+
+console.log(
+  `Drift check passed: ${bulletCounts.en} list items per language, ${REQUIRED_TOKENS.length} claims matched.`,
+);
