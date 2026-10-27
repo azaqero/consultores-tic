@@ -25,6 +25,20 @@ Decision Record in [`docs/adr/`](docs/adr/).
 | `npm run dev`     | Start the dev server at `localhost:4321`     |
 | `npm run build`   | Build the production site into `./dist/`     |
 | `npm run preview` | Preview the production build locally         |
+| `npm run cv:pdf`  | Rebuild and regenerate `public/cv.pdf`       |
+
+## The CV
+
+The curriculum exists in exactly one place: [`src/content/cv.ts`](src/content/cv.ts).
+The page at `/cv/` renders it, and `npm run cv:pdf` prints that page with headless
+Chrome into `public/cv.pdf`.
+
+The generated PDF is committed on purpose. The host serves files and never builds,
+so the artifact has to exist in the repository for the download link to work.
+
+Regenerating the PDF requires a `google-chrome`, `chromium` or `chromium-browser`
+binary on the machine. If none is available, the script exits with an explanatory
+error instead of writing a stale file.
 
 ## Structure
 

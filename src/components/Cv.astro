@@ -1,0 +1,455 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import type { Lang } from '../i18n/ui';
+import { cv } from '../content/cv';
+
+export interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const strings = {
+  en: {
+    eyebrow: 'Curriculum Vitae',
+    download: 'Download PDF',
+    print: 'Print',
+    summary: 'Summary',
+    selectedWork: 'Selected Work',
+    skills: 'Technical Skills',
+    experience: 'Experience',
+    otherWork: 'Other Work',
+    languages: 'Languages and Availability',
+    updated: 'Last updated October 2026',
+  },
+  es: {
+    eyebrow: 'Curriculum Vitae',
+    download: 'Descargar PDF',
+    print: 'Imprimir',
+    summary: 'Resumen',
+    selectedWork: 'Trabajos seleccionados',
+    skills: 'Competencias técnicas',
+    experience: 'Experiencia',
+    otherWork: 'Otros trabajos',
+    languages: 'Idiomas y disponibilidad',
+    updated: 'Última actualización: octubre de 2026',
+  },
+}[lang];
+
+const meta = {
+  en: {
+    title: 'CV — Gustavo Azañero, Senior Software Engineer',
+    description:
+      'Curriculum vitae: 18 years of backend engineering, APIs, queued processing and AWS infrastructure.',
+  },
+  es: {
+    title: 'CV — Gustavo Azañero, Ingeniero de Software Senior',
+    description:
+      'Currículum: 18 años de ingeniería backend, APIs, procesamiento por colas e infraestructura AWS.',
+  },
+}[lang];
+
+const c = cv;
+const contactLine = [
+  c.contact.location,
+  c.contact.email,
+  c.contact.phone,
+  c.contact.github,
+  c.contact.site,
+];
+---
+
+<BaseLayout title={meta.title} description={meta.description} route="cv" lang={lang}>
+  <div class="cv-toolbar no-print">
+    <p>{strings.updated}</p>
+    <div class="cv-toolbar__actions">
+      <a class="button button--primary" href="/cv.pdf" download>{strings.download}</a>
+    </div>
+  </div>
+
+  {
+    lang === 'es' && (
+      <p class="cv-note no-print">
+        El currículum se mantiene en inglés por ser el idioma de trabajo del sector.
+      </p>
+    )
+  }
+
+  <article class="cv">
+    <header class="cv__header">
+      <h1>{c.name}</h1>
+      <p class="cv__title">{c.title}</p>
+      <p class="cv__contact">
+        {
+          contactLine.map((item, index) => (
+            <>
+              {index > 0 && <span class="cv__sep" aria-hidden="true"> · </span>}
+              {item.includes('@') ? (
+                <a href={`mailto:${item}`}>{item}</a>
+              ) : (
+                <span>{item}</span>
+              )}
+            </>
+          ))
+        }
+      </p>
+    </header>
+
+    <section class="cv__section">
+      <h2>{strings.summary}</h2>
+      {c.summary.map((paragraph) => <p>{paragraph}</p>)}
+    </section>
+
+    <section class="cv__section">
+      <h2>{strings.selectedWork}</h2>
+      <ul class="cv__list">
+        {
+          c.selectedWork.map((item) => (
+            <li>
+              <strong>{item.title}.</strong> {item.body}
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="cv__section">
+      <h2>{strings.skills}</h2>
+      <dl class="cv__skills">
+        {
+          c.skills.map((group) => (
+            <>
+              <dt>{group.label}</dt>
+              <dd>{group.items}</dd>
+            </>
+          ))
+        }
+      </dl>
+    </section>
+
+    <section class="cv__section">
+      <h2>{strings.experience}</h2>
+      {
+        c.experience.map((job) => (
+          <div class="cv__job">
+            <div class="cv__job-head">
+              <h3>
+                {job.role} <span class="cv__company">— {job.company}</span>
+              </h3>
+              <span class="cv__period">{job.period}</span>
+            </div>
+            {job.intro && <p>{job.intro}</p>}
+            {
+              job.entries.map((entry) => (
+                <div class="cv__entry">
+                  <h4>
+                    {entry.name}
+                    {entry.detail && <span class="cv__detail">— {entry.detail}</span>}
+                  </h4>
+                  <ul class="cv__list">
+                    {entry.bullets.map((bullet) => (
+                      <li>{bullet}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))
+            }
+          </div>
+        ))
+      }
+    </section>
+
+    <section class="cv__section">
+      <h2>{strings.otherWork}</h2>
+      <ul class="cv__list">
+        {c.otherWork.map((item) => <li>{item}</li>)}
+      </ul>
+    </section>
+
+    <section class="cv__section">
+      <h2>{strings.languages}</h2>
+      <ul class="cv__list">
+        {c.languages.map((item) => <li>{item}</li>)}
+      </ul>
+    </section>
+  </article>
+</BaseLayout>
+
+<style is:global>
+  /* Screen */
+  .cv {
+    max-width: 52rem;
+    margin: 0 auto;
+  }
+
+  .cv__header {
+    padding-bottom: var(--space-3);
+    border-bottom: 2px solid var(--color-text);
+    margin-bottom: var(--space-3);
+  }
+
+  .cv h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.02em;
+  }
+
+  .cv__title {
+    font-size: 1rem;
+    color: var(--color-accent);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .cv__contact {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    margin: 0;
+  }
+
+  .cv__contact a {
+    color: inherit;
+  }
+
+  .cv__sep {
+    color: var(--color-border);
+  }
+
+  .cv__section {
+    margin-bottom: var(--space-4);
+  }
+
+  .cv__section h2 {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 0.3rem;
+    margin-bottom: var(--space-2);
+  }
+
+  .cv__section p {
+    font-size: 0.9375rem;
+    max-width: none;
+  }
+
+  .cv__list {
+    margin: 0;
+    padding-left: 1.1rem;
+    font-size: 0.9375rem;
+  }
+
+  .cv__list li {
+    margin-bottom: 0.45rem;
+  }
+
+  .cv__skills {
+    display: grid;
+    grid-template-columns: 12rem 1fr;
+    gap: 0.35rem var(--space-2);
+    margin: 0;
+    font-size: 0.9375rem;
+  }
+
+  .cv__skills dt {
+    font-weight: 600;
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding-top: 0.1rem;
+  }
+
+  .cv__skills dd {
+    margin: 0;
+  }
+
+  .cv__job-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .cv__job h3 {
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .cv__company {
+    font-weight: 400;
+    color: var(--color-muted);
+  }
+
+  .cv__period {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+  }
+
+  .cv__entry {
+    margin-top: var(--space-2);
+  }
+
+  .cv__entry h4 {
+    font-size: 0.9375rem;
+    margin: 0 0 0.3rem;
+  }
+
+  .cv__detail {
+    font-weight: 400;
+    color: var(--color-muted);
+    font-size: 0.875rem;
+  }
+
+  .cv-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    max-width: 52rem;
+    margin: 0 auto var(--space-3);
+    padding: var(--space-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+  }
+
+  .cv-toolbar p {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+  }
+
+  .cv-note {
+    max-width: 52rem;
+    margin: 0 auto var(--space-3);
+    font-size: 0.875rem;
+    color: var(--color-muted);
+  }
+
+  @media (width < 40rem) {
+    .cv__skills {
+      grid-template-columns: 1fr;
+      gap: 0.15rem;
+    }
+
+    .cv__skills dd {
+      margin-bottom: 0.6rem;
+    }
+  }
+
+  /* Print */
+  @page {
+    size: A4;
+    margin: 12mm 13mm;
+  }
+
+  @media print {
+    :root {
+      --color-bg: #ffffff;
+      --color-surface: #ffffff;
+      --color-text: #000000;
+      --color-muted: #444444;
+      --color-border: #cccccc;
+      --color-accent: #1a4b3d;
+    }
+
+    body {
+      background: #fff;
+      color: #000;
+      font-size: 9.6pt;
+      line-height: 1.38;
+    }
+
+    .site-header,
+    .site-footer,
+    .lang-switch-bar,
+    .skip-link,
+    .no-print,
+    main > .container > *:not(.cv) {
+      display: none !important;
+    }
+
+    main {
+      padding: 0 !important;
+      max-width: none !important;
+    }
+
+    .container {
+      padding: 0 !important;
+      max-width: none !important;
+    }
+
+    .cv {
+      max-width: none;
+    }
+
+    .cv h1 {
+      font-size: 19pt;
+      margin-bottom: 1pt;
+    }
+
+    .cv__title {
+      font-size: 9.5pt;
+      margin-bottom: 3pt;
+    }
+
+    .cv__contact {
+      font-size: 8pt;
+    }
+
+    .cv__header {
+      padding-bottom: 4pt;
+      margin-bottom: 8pt;
+    }
+
+    .cv__section {
+      margin-bottom: 9pt;
+      break-inside: auto;
+    }
+
+    .cv__section h2 {
+      font-size: 7.5pt;
+      margin-bottom: 4pt;
+      padding-bottom: 2pt;
+    }
+
+    .cv__section p,
+    .cv__list,
+    .cv__skills {
+      font-size: 9.2pt;
+    }
+
+    .cv__list li {
+      margin-bottom: 2.5pt;
+    }
+
+    .cv__skills {
+      grid-template-columns: 30mm 1fr;
+      gap: 1.5pt 6pt;
+    }
+
+    .cv__skills dt {
+      font-size: 7.8pt;
+    }
+
+    .cv__entry {
+      margin-top: 6pt;
+      break-inside: avoid;
+    }
+
+    .cv__job-head {
+      break-after: avoid;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+</style>
