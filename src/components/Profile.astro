@@ -1,0 +1,309 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import type { Lang } from '../i18n/ui';
+import { pathFor } from '../i18n/ui';
+import { profile } from '../content/profile';
+
+export interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const c = profile[lang];
+
+const meta = {
+  en: {
+    title: 'Profile — Gustavo Azañero, Consultores TIC',
+    description:
+      'Backend engineer with 18 years building and operating production systems. How the stack evolved across three architectures and what I build today.',
+  },
+  es: {
+    title: 'Perfil — Gustavo Azañero, Consultores TIC',
+    description:
+      'Ingeniero backend con 18 años construyendo y operando sistemas en producción. Cómo evolucionó el stack en tres arquitecturas y qué construyo hoy.',
+  },
+}[lang];
+---
+
+<BaseLayout title={meta.title} description={meta.description} route="profile" lang={lang}>
+  <section class="intro">
+    <p class="eyebrow">{c.eyebrow}</p>
+    <h1>{c.headline}</h1>
+    {c.intro.map((paragraph) => <p>{paragraph}</p>)}
+  </section>
+
+  <section class="section" aria-labelledby="trajectory-title">
+    <header class="section__header">
+      <h2 id="trajectory-title">{c.timeline.title}</h2>
+      <p>{c.timeline.intro}</p>
+    </header>
+
+    <ol class="timeline">
+      {
+        c.timeline.entries.map((entry) => (
+          <li class="timeline__item">
+            <span class="timeline__period">{entry.period}</span>
+            <div>
+              <h3>{entry.title}</h3>
+              <p>{entry.body}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="section" aria-labelledby="products-title">
+    <header class="section__header">
+      <h2 id="products-title">{c.products.title}</h2>
+    </header>
+
+    <ul class="products">
+      {
+        c.products.entries.map((entry) => (
+          <li>
+            <div class="products__head">
+              <h3>{entry.name}</h3>
+              <span class="products__role">{entry.role}</span>
+            </div>
+            <p>{entry.body}</p>
+            <p class="products__stack">{entry.stack}</p>
+            {entry.url && (
+              <a class="products__link" href={entry.url} rel="noopener">
+                {entry.url.replace(/^https?:\/\//, '')}
+              </a>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="principles-title">
+    <header class="section__header">
+      <h2 id="principles-title">{c.principles.title}</h2>
+      <p>{c.principles.intro}</p>
+    </header>
+
+    <ol class="principles">
+      {
+        c.principles.items.map((item, index) => (
+          <li>
+            <span class="principles__num" aria-hidden="true">
+              {String(index + 1).padStart(2, '0')}
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="section closing">
+    <div>
+      <h2>{c.closing.title}</h2>
+      <p>{c.closing.body}</p>
+    </div>
+    <div class="closing__actions">
+      <a class="button button--primary" href={pathFor('cv', lang)}>{c.closing.cv}</a>
+      <a class="button" href={`mailto:contacto@consultores-tic.com`}>{c.closing.contact}</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .intro {
+    max-width: 44rem;
+    padding-block: var(--space-3) var(--space-5);
+  }
+
+  .intro p {
+    font-size: 1.0625rem;
+  }
+
+  .intro p:not(.eyebrow) + p:not(.eyebrow) {
+    color: var(--color-muted);
+  }
+
+  .section {
+    padding-block: var(--space-5);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .section__header {
+    margin-bottom: var(--space-4);
+  }
+
+  .section__header p {
+    color: var(--color-muted);
+    max-width: 52rem;
+  }
+
+  /* Timeline */
+  .timeline {
+    position: relative;
+    margin: 0;
+    padding: 0 0 0 var(--space-3);
+    list-style: none;
+    border-left: 2px solid var(--color-border);
+  }
+
+  .timeline__item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: var(--space-2);
+    padding-bottom: var(--space-4);
+  }
+
+  .timeline__item:last-child {
+    padding-bottom: 0;
+  }
+
+  .timeline__item::before {
+    content: '';
+    position: absolute;
+    left: calc(-1 * var(--space-3) - 7px);
+    top: 0.55rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    border: 2px solid var(--color-bg);
+  }
+
+  .timeline__period {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-accent);
+    padding-top: 0.15rem;
+  }
+
+  .timeline h3 {
+    font-size: var(--step-0);
+    margin-bottom: 0.35rem;
+  }
+
+  .timeline p {
+    font-size: 0.9375rem;
+    color: var(--color-muted);
+    margin: 0;
+  }
+
+  @media (width < 40rem) {
+    .timeline__item {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+  }
+
+  /* Products */
+  .products {
+    display: grid;
+    gap: var(--space-3);
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .products li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+  }
+
+  .products__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .products h3 {
+    margin: 0;
+  }
+
+  .products__role {
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+  }
+
+  .products p {
+    margin: 0;
+    font-size: 0.9375rem;
+    max-width: none;
+  }
+
+  .products__stack {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-muted);
+    margin-top: auto;
+    padding-top: var(--space-1);
+  }
+
+  .products__link {
+    font-size: 0.875rem;
+    align-self: flex-start;
+  }
+
+  /* Principles */
+  .principles {
+    display: grid;
+    gap: var(--space-3);
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .principles__num {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .principles h3 {
+    font-size: var(--step-0);
+    margin-bottom: 0.35rem;
+  }
+
+  .principles p {
+    font-size: 0.9375rem;
+    color: var(--color-muted);
+    max-width: none;
+  }
+
+  /* Closing */
+  .closing {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .closing h2 {
+    font-size: var(--step-1);
+    margin-bottom: 0.25rem;
+  }
+
+  .closing p {
+    margin: 0;
+    color: var(--color-muted);
+  }
+
+  .closing__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+</style>
