@@ -12,9 +12,12 @@ export interface ProjectSection {
 
 export interface Project {
   slug: string;
+  status?: string;
   name: string;
   role: string;
   period?: string;
+  /** Current operational state, only where it is verified. */
+  status?: string;
   summary: string;
   facts?: ProjectFact[];
   sections: ProjectSection[];
@@ -35,16 +38,17 @@ export interface ProjectsContent {
 export const projects: Record<Lang, ProjectsContent> = {
   en: {
     eyebrow: 'Projects',
-    headline: 'Systems I built and still operate',
+    headline: 'Systems I built',
     intro:
       'Four products, written up the way I would explain them in an interview: what the constraint was, what I chose, and what the choice cost.',
-    note: 'All of these run on infrastructure I administer. No client code, credentials or confidential data appears on this page.',
+    note: 'The source code for all of these is private, and most are no longer under my administration. What follows describes what I built and the decisions behind it — no client code, credentials or confidential data.',
     items: [
       {
         slug: 'apifuel',
         name: 'ApiFuel',
         role: 'Lead management and dispatch',
         period: '2012 — 2025',
+        status: 'Operated 2012 — 2025',
         summary:
           'Ingests leads and dispatches each one to multiple third-party buyer APIs. The interesting part is not the request rate — it is that every lead multiplies into several outbound calls.',
         facts: [
@@ -79,6 +83,7 @@ export const projects: Record<Lang, ProjectsContent> = {
         name: 'ArticleAI',
         role: 'SaaS content platform',
         period: 'Built and shipped solo',
+        status: 'Built and operated',
         summary:
           'A complete commercial product: front end, back end, API, payment-free licensing and a WordPress plugin that distributes it.',
         sections: [
@@ -99,6 +104,7 @@ export const projects: Record<Lang, ProjectsContent> = {
         name: 'DialReveal',
         role: 'Anti-spam call detection',
         period: 'Integrated platform',
+        status: 'Built and operated',
         summary:
           'Three unreliable external sources — telephony events, public complaint data and scraping — normalized into one signal a customer can act on.',
         sections: [
@@ -119,6 +125,7 @@ export const projects: Record<Lang, ProjectsContent> = {
         name: 'Opticaz',
         role: 'Optometry management system',
         period: 'Multi-client system',
+        status: 'Still in operation, under my administration',
         summary:
           'One REST API behind three clients: a web application, an Android app and an administrative dashboard.',
         sections: [
@@ -140,16 +147,17 @@ export const projects: Record<Lang, ProjectsContent> = {
 
   es: {
     eyebrow: 'Proyectos',
-    headline: 'Sistemas que construí y sigo operando',
+    headline: 'Sistemas que construí',
     intro:
       'Cuatro productos, escritos como los explicaría en una entrevista: cuál era la restricción, qué elegí y qué me costó esa elección.',
-    note: 'Todos corren sobre infraestructura que administro yo. En esta página no hay código de clientes, credenciales ni datos confidenciales.',
+    note: 'El código de todos estos proyectos es privado, y la mayoría ya no está bajo mi administración. Lo que sigue describe qué construí y las decisiones detrás — sin código de clientes, credenciales ni datos confidenciales.',
     items: [
       {
         slug: 'apifuel',
         name: 'ApiFuel',
         role: 'Gestión y despacho de leads',
         period: '2012 — 2025',
+        status: 'Operado entre 2012 y 2025',
         summary:
           'Ingesta leads y despacha cada uno a múltiples APIs de compradores. Lo interesante no es la tasa de peticiones: es que cada lead se multiplica en varias llamadas salientes.',
         facts: [
@@ -184,6 +192,7 @@ export const projects: Record<Lang, ProjectsContent> = {
         name: 'ArticleAI',
         role: 'Plataforma SaaS de contenido',
         period: 'Construida y publicada en solitario',
+        status: 'Construido y operado',
         summary:
           'Un producto comercial completo: front end, back end, API, licenciamiento y un plugin de WordPress que lo distribuye.',
         sections: [
@@ -204,6 +213,7 @@ export const projects: Record<Lang, ProjectsContent> = {
         name: 'DialReveal',
         role: 'Detección de llamadas spam',
         period: 'Plataforma integrada',
+        status: 'Construido y operado',
         summary:
           'Tres fuentes externas poco confiables — eventos de telefonía, datos públicos de reclamos y scraping — normalizadas en una sola señal sobre la que el cliente puede actuar.',
         sections: [
@@ -224,6 +234,7 @@ export const projects: Record<Lang, ProjectsContent> = {
         name: 'Opticaz',
         role: 'Sistema de gestión para optometría',
         period: 'Sistema multi-cliente',
+        status: 'Sigue en operación, bajo mi administración',
         summary:
           'Una API REST detrás de tres clientes: aplicación web, app Android y panel administrativo.',
         sections: [

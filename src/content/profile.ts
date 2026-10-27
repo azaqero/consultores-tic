@@ -83,12 +83,12 @@ export const profile: Record<Lang, ProfileContent> = {
       ],
     },
     products: {
-      title: 'Products I built and operate',
+      title: 'Products I built and operated',
       entries: [
         {
           name: 'ApiFuel',
           role: 'Lead management and dispatch',
-          body: 'Ingests leads and dispatches each one to multiple third-party buyer APIs. In production since 2012, on three successive architectures.',
+          body: 'Ingested leads and dispatched each one to multiple third-party buyer APIs. In production from 2012 to 2025, across three successive architectures.',
           stack: 'PHP · TypeScript · AWS Lambda · API Gateway · BullMQ · Redis · PostgreSQL',
           url: 'https://apifuel.com',
         },
@@ -180,12 +180,12 @@ export const profile: Record<Lang, ProfileContent> = {
       ],
     },
     products: {
-      title: 'Productos que construí y opero',
+      title: 'Productos que construí y operé',
       entries: [
         {
           name: 'ApiFuel',
           role: 'Gestión y despacho de leads',
-          body: 'Ingesta leads y despacha cada uno a múltiples APIs de compradores. En producción desde 2012, sobre tres arquitecturas sucesivas.',
+          body: 'Ingesta leads y despachaba cada uno a múltiples APIs de compradores. En producción entre 2012 y 2025, sobre tres arquitecturas sucesivas.',
           stack: 'PHP · TypeScript · AWS Lambda · API Gateway · BullMQ · Redis · PostgreSQL',
           url: 'https://apifuel.com',
         },

@@ -57,7 +57,7 @@ export const home: Record<Lang, HomeContent> = {
     work: {
       title: 'Selected work',
       intro:
-        'Products I designed, built and still operate — not a list of technologies, but systems that solve someone’s problem.',
+        'Products I designed and built — not a list of technologies, but systems that solved someone’s problem.',
       allProjects: 'Read the full project write-ups',
       items: [
         {
@@ -130,7 +130,7 @@ export const home: Record<Lang, HomeContent> = {
     work: {
       title: 'Trabajos seleccionados',
       intro:
-        'Productos que diseñé, construí y sigo operando — no una lista de tecnologías, sino sistemas que resuelven el problema de alguien.',
+        'Productos que diseñé y construí — no una lista de tecnologías, sino sistemas que resolvieron el problema de alguien.',
       allProjects: 'Leer el detalle de cada proyecto',
       items: [
         {
