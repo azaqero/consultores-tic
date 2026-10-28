@@ -40,8 +40,9 @@ The generated PDF is committed on purpose. The host serves files and never build
 so the artifact has to exist in the repository for the download link to work.
 
 Regenerating the PDF requires a `google-chrome`, `chromium` or `chromium-browser`
-binary on the machine. If none is available, the script exits with an explanatory
-error instead of writing a stale file.
+binary, plus `exiftool` and `qpdf`. The last two pin the document dates and the
+document ID so repeated runs over unchanged content produce identical bytes; a
+missing tool exits with an explanatory error instead of writing a stale file.
 
 ## Structure
 

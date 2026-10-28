@@ -18,7 +18,8 @@
  * different things are worse than one CV: the guard compares bullet counts and
  * requires every numeric claim to appear in both.
  *
- * Requirements: a `google-chrome`, `chromium` or `chromium-browser` binary.
+ * Requirements: a `google-chrome`, `chromium` or `chromium-browser` binary,
+ * plus `exiftool` and `qpdf` to make the output reproducible.
  * Usage: npm run cv:pdf   (runs the build first)
  */
 import { spawn, spawnSync } from 'node:child_process';
@@ -60,6 +61,56 @@ function findChrome() {
     if (probe.status === 0 && probe.stdout.trim()) return probe.stdout.trim();
   }
   return null;
+}
+
+function requireTool(name) {
+  const probe = spawnSync('which', [name], { encoding: 'utf8' });
+  if (probe.status !== 0 || !probe.stdout.trim()) {
+    console.error(
+      `Missing "${name}". It is required to make the CV PDFs reproducible; install it and retry.`,
+    );
+    process.exit(1);
+  }
+}
+
+/**
+ * Chrome stamps every printed PDF with the current time and a random document
+ * ID, so two runs over identical content produce different bytes. That makes
+ * the committed PDFs dirty on every release even when the CV did not change.
+ *
+ * The dates are pinned to the last commit that touched the CV source, which is
+ * stable across clones and changes only when the content does. qpdf then
+ * recomputes the document ID from the normalised content.
+ */
+const FALLBACK_DATE = '1970:01:01 00:00:00Z';
+
+function pinnedDate() {
+  const probe = spawnSync('git', ['log', '-1', '--format=%cs', '--', 'src/content/cv.ts'], {
+    cwd: root,
+    encoding: 'utf8',
+  });
+  const day = probe.status === 0 ? probe.stdout.trim() : '';
+  return /^\d{4}-\d{2}-\d{2}$/.test(day) ? `${day.replace(/-/g, ':')} 00:00:00Z` : FALLBACK_DATE;
+}
+
+function normalisePdf(file, date) {
+  const stamped = spawnSync(
+    'exiftool',
+    ['-overwrite_original', `-CreateDate=${date}`, `-ModifyDate=${date}`, file],
+    { encoding: 'utf8' },
+  );
+  if (stamped.status !== 0) {
+    console.error(stamped.stderr || 'exiftool failed to pin the PDF dates.');
+    process.exit(1);
+  }
+
+  const identified = spawnSync('qpdf', ['--deterministic-id', '--replace-input', file], {
+    encoding: 'utf8',
+  });
+  if (identified.status !== 0) {
+    console.error(identified.stderr || 'qpdf failed to normalise the PDF document ID.');
+    process.exit(1);
+  }
 }
 
 function visibleText(html) {
@@ -116,6 +167,10 @@ if (!chrome) {
   console.error(`No Chrome or Chromium binary found. Tried: ${candidates.join(', ')}`);
   process.exit(1);
 }
+requireTool('exiftool');
+requireTool('qpdf');
+
+const pdfDate = pinnedDate();
 
 /**
  * Run Chrome without blocking the event loop.
@@ -184,6 +239,8 @@ try {
       console.error(`Chrome reported success but wrote no PDF for ${page.label}.`);
       process.exit(1);
     }
+
+    normalisePdf(page.output, pdfDate);
 
     const { size } = statSync(page.output);
     console.log(`Wrote ${page.output} (${(size / 1024).toFixed(1)} KB)`);
