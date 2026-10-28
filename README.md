@@ -12,6 +12,13 @@ static build that is simpler to reason about, cheaper to maintain and easier to
 audit. The reasoning behind each significant choice is recorded as an Architecture
 Decision Record in [`docs/adr/`](docs/adr/).
 
+## Standards
+
+The rules this project follows — language, privacy, metadata, release gates,
+deploy and review — live in [`docs/PROJECT_STANDARDS.md`](docs/PROJECT_STANDARDS.md).
+It is written to be copied into a new project and adapted where marked
+**[ADAPT]**. This repository is one implementation of it, not the source of truth.
+
 ## Requirements
 
 - Node.js 22+
