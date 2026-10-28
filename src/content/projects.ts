@@ -75,7 +75,7 @@ export const projects: Record<Lang, ProjectsContent> = {
           },
         ],
         stack: 'PHP · TypeScript · AWS Lambda · API Gateway · BullMQ · Redis Cluster · PostgreSQL · PgBouncer',
-        url: 'https://apifuel.com',
+        url: 'https://www.apifuel.com',
       },
       {
         slug: 'articleai',
@@ -96,7 +96,7 @@ export const projects: Record<Lang, ProjectsContent> = {
           },
         ],
         stack: 'React · TypeScript · MySQL · WordPress plugin',
-        url: 'https://articleai.io',
+        url: 'https://www.articleai.io',
       },
       {
         slug: 'dialreveal',
@@ -117,7 +117,7 @@ export const projects: Record<Lang, ProjectsContent> = {
           },
         ],
         stack: 'PHP · Twilio · Stripe · MySQL · jQuery',
-        url: 'https://dialreveal.com',
+        url: 'https://www.dialreveal.com',
       },
       {
         slug: 'opticaz',
@@ -134,6 +134,7 @@ export const projects: Record<Lang, ProjectsContent> = {
           },
         ],
         stack: 'PHP · MySQL · REST · Android',
+        url: 'https://www.opticaz.pe',
       },
       {
         slug: 'daleespacio',
@@ -143,11 +144,6 @@ export const projects: Record<Lang, ProjectsContent> = {
         status: 'Live, under my administration',
         summary:
           'Commercial landing page for a personal backup service, with a self-hosted Nextcloud instance behind it. I built the site and run the service; the storage engine and mobile apps are Nextcloud.',
-        facts: [
-          { label: 'Plans', value: '50 / 200 / 500 GB' },
-          { label: 'Storage engine', value: 'Self-hosted Nextcloud' },
-          { label: 'Clients', value: 'Web, Android, iOS' },
-        ],
         sections: [
           {
             heading: 'What I built',
@@ -214,7 +210,7 @@ export const projects: Record<Lang, ProjectsContent> = {
           },
         ],
         stack: 'PHP · TypeScript · AWS Lambda · API Gateway · BullMQ · Redis Cluster · PostgreSQL · PgBouncer',
-        url: 'https://apifuel.com',
+        url: 'https://www.apifuel.com',
       },
       {
         slug: 'articleai',
@@ -235,7 +231,7 @@ export const projects: Record<Lang, ProjectsContent> = {
           },
         ],
         stack: 'React · TypeScript · MySQL · plugin de WordPress',
-        url: 'https://articleai.io',
+        url: 'https://www.articleai.io',
       },
       {
         slug: 'dialreveal',
@@ -256,7 +252,7 @@ export const projects: Record<Lang, ProjectsContent> = {
           },
         ],
         stack: 'PHP · Twilio · Stripe · MySQL · jQuery',
-        url: 'https://dialreveal.com',
+        url: 'https://www.dialreveal.com',
       },
       {
         slug: 'opticaz',
@@ -273,6 +269,7 @@ export const projects: Record<Lang, ProjectsContent> = {
           },
         ],
         stack: 'PHP · MySQL · REST · Android',
+        url: 'https://www.opticaz.pe',
       },
       {
         slug: 'daleespacio',
@@ -282,11 +279,6 @@ export const projects: Record<Lang, ProjectsContent> = {
         status: 'En línea, bajo mi administración',
         summary:
           'Landing comercial de un servicio de respaldo personal, con una instancia de Nextcloud autogestionada detrás. Construí el sitio y opero el servicio; el motor de almacenamiento y las apps móviles son de Nextcloud.',
-        facts: [
-          { label: 'Planes', value: '50 / 200 / 500 GB' },
-          { label: 'Motor de almacenamiento', value: 'Nextcloud autogestionado' },
-          { label: 'Clientes', value: 'Web, Android, iOS' },
-        ],
         sections: [
           {
             heading: 'Qué construí',
