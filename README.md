@@ -28,6 +28,7 @@ Decision Record in [`docs/adr/`](docs/adr/).
 | `npm run cv:pdf`  | Rebuild and regenerate both CV PDFs          |
 | `npm run release` | Build, regenerate CVs, and check for leaks   |
 | `npm run check:leaks` | Scan `dist/` for unexpected personal data |
+| `npm run check:copy`  | Reject Rioplatense Spanish in `src/`    |
 
 ## The CV
 

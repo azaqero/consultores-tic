@@ -12,14 +12,14 @@ never builds anything; it serves files.
 ## 0. Pre-flight (local, before touching the server)
 
 ```bash
-npm run release          # build + CV PDFs + leak check, in that order
+npm run release          # copy check + build + CV PDFs + leak check, in that order
 ```
 
 `npm run release` is the only supported way to produce a deployable artifact:
-it rebuilds, regenerates both CV PDFs, and then refuses to finish if the build
-contains an email address that is not explicitly allowed or anything resembling
-a phone number. Running the steps separately is how an unchecked artifact reaches
-the server.
+it rejects Rioplatense Spanish in the source, rebuilds, regenerates both CV PDFs,
+and then refuses to finish if the build contains an email address that is not
+explicitly allowed or anything resembling a phone number. Running the steps
+separately is how an unchecked artifact reaches the server.
 
 For a subdirectory staging build, use `npm run release:staging`, which scans
 `dist-new` instead of `dist`.
@@ -29,6 +29,7 @@ Confirm before continuing:
 | Check | Command | Expected |
 | --- | --- | --- |
 | No personal data in the build | `npm run check:leaks` | "Clean: N files scanned" |
+| No Rioplatense copy | `npm run check:copy` | "Clean: N files scanned" |
 | No dead internal links | see `scripts/verify-deploy.mjs` | 0 failures |
 | Build size | `du -sh dist` | under 1 MB |
 | Critical files present | `ls dist/.htaccess dist/404.html dist/sitemap.xml dist/cv.pdf` | all present |
