@@ -88,7 +88,7 @@ node scripts/verify-deploy.mjs https://www.consultores-tic.com
 Expected: every check passes. What it covers:
 
 - All six pages, both languages, return 200.
-- `cv.pdf`, `og-default.png`, `portrait.jpg`, `sitemap.xml`, `robots.txt` return 200
+- `cv.pdf`, `og-default.png`, `og-es.png`, `portrait.jpg`, `sitemap.xml`, `robots.txt` return 200
   with the right content type.
 - Canonical, hreflang and JSON-LD are present.
 - Legacy URLs redirect with **301**, not 302.

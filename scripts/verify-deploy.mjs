@@ -50,6 +50,7 @@ console.log('\nAssets');
 for (const [path, type] of [
   ['/cv.pdf', 'pdf'],
   ['/og-default.png', 'png'],
+  ['/og-es.png', 'png'],
   ['/portrait.jpg', 'jpeg'],
   ['/favicon.svg', 'svg'],
   ['/sitemap.xml', 'xml'],
@@ -71,7 +72,13 @@ console.log('\nHead tags');
   check('canonical', /rel="canonical" href="https:\/\/www\.consultores-tic\.com\/"/.test(body));
   check('hreflang en/es/x-default', (body.match(/hreflang="/g) || []).length >= 3);
   check('og:image present', body.includes('og:image'));
+  check('og:image:type png', body.includes('og:image:type" content="image/png"'));
+  check('twitter:image present', body.includes('twitter:image"'));
   check('JSON-LD Person', body.includes('"@type":"Person"'));
+
+  const esRes = await get(base + '/es/');
+  check('og:image localized (es)', esRes.body.includes('/og-es.png'));
+  check('og:image:alt localized (es)', esRes.body.includes('Ingeniero de Software Senior, sistemas backend'));
   check('single h1', (body.match(/<h1/g) || []).length === 1);
 }
 

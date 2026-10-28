@@ -1,21 +1,22 @@
 #!/usr/bin/env node
 /**
- * Generates public/og-default.png — the 1200x630 social preview card.
+ * Generates the 1200x630 social preview cards, one per language:
+ *
+ *   public/og-default.png (English) → public/og-es.png (Spanish)
  *
  * Same approach as the CV PDF: a self-contained HTML file rendered by headless
- * Chrome, so the image is reproducible from source instead of being a binary
+ * Chrome, so the images are reproducible from source instead of being binaries
  * someone has to remember to update.
  *
  * Usage: npm run og:image
  */
 import { spawnSync } from 'node:child_process';
 import { copyFileSync, existsSync, mkdirSync, statSync, writeFileSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
+import { basename, dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const htmlPath = join(root, '.tmp', 'og-card.html');
-const output = join(root, 'public', 'og-default.png');
 
 const candidates = ['google-chrome', 'google-chrome-stable', 'chromium', 'chromium-browser'];
 
@@ -27,8 +28,24 @@ function findChrome() {
   return null;
 }
 
-const html = `<!doctype html>
-<html lang="en">
+const cards = [
+  {
+    lang: 'en',
+    output: join(root, 'public', 'og-default.png'),
+    eyebrow: 'Senior Software Engineer',
+    headline: 'I build backend systems that <em>hold up under real traffic</em>.',
+  },
+  {
+    lang: 'es',
+    output: join(root, 'public', 'og-es.png'),
+    eyebrow: 'Ingeniero de Software Senior',
+    headline: 'Construyo sistemas backend que <em>soportan tráfico real</em>.',
+  },
+];
+
+function cardHtml({ lang, eyebrow, headline }) {
+  return `<!doctype html>
+<html lang="${lang}">
 <head>
 <meta charset="utf-8">
 <style>
@@ -93,8 +110,8 @@ const html = `<!doctype html>
 <body>
   <div class="rule"></div>
   <div>
-    <p class="eyebrow">Senior Software Engineer</p>
-    <h1>I build backend systems that <em>hold up under real traffic</em>.</h1>
+    <p class="eyebrow">${eyebrow}</p>
+    <h1>${headline}</h1>
   </div>
   <div class="footer">
     <p class="who">Gustavo Azañero <span>Consultores TIC · consultores-tic.com</span></p>
@@ -102,6 +119,7 @@ const html = `<!doctype html>
   </div>
 </body>
 </html>`;
+}
 
 const chrome = findChrome();
 if (!chrome) {
@@ -111,39 +129,42 @@ if (!chrome) {
 
 mkdirSync(dirname(htmlPath), { recursive: true });
 mkdirSync(join(root, 'public'), { recursive: true });
-writeFileSync(htmlPath, html, 'utf8');
 
-const result = spawnSync(
-  chrome,
-  [
-    '--headless=new',
-    '--disable-gpu',
-    '--no-sandbox',
-    '--hide-scrollbars',
-    '--force-device-scale-factor=1',
-    '--window-size=1200,630',
-    `--screenshot=${output}`,
-    '--virtual-time-budget=3000',
-    `file://${htmlPath}`,
-  ],
-  { encoding: 'utf8' },
-);
+for (const card of cards) {
+  writeFileSync(htmlPath, cardHtml(card), 'utf8');
 
-if (result.status !== 0) {
-  console.error(result.stderr || result.stdout || 'Chrome exited with a non-zero status.');
-  process.exit(result.status ?? 1);
-}
+  const result = spawnSync(
+    chrome,
+    [
+      '--headless=new',
+      '--disable-gpu',
+      '--no-sandbox',
+      '--hide-scrollbars',
+      '--force-device-scale-factor=1',
+      '--window-size=1200,630',
+      `--screenshot=${card.output}`,
+      '--virtual-time-budget=3000',
+      `file://${htmlPath}`,
+    ],
+    { encoding: 'utf8' },
+  );
 
-if (!existsSync(output)) {
-  console.error('Chrome reported success but no image was written.');
-  process.exit(1);
-}
+  if (result.status !== 0) {
+    console.error(result.stderr || result.stdout || 'Chrome exited with a non-zero status.');
+    process.exit(result.status ?? 1);
+  }
 
-const { size } = statSync(output);
-console.log(`Wrote ${output} (${(size / 1024).toFixed(1)} KB)`);
+  if (!existsSync(card.output)) {
+    console.error('Chrome reported success but no image was written.');
+    process.exit(1);
+  }
 
-const distCopy = join(root, 'dist', 'og-default.png');
-if (existsSync(join(root, 'dist'))) {
-  copyFileSync(output, distCopy);
-  console.log(`Synced ${distCopy}`);
+  const { size } = statSync(card.output);
+  console.log(`Wrote ${card.output} (${(size / 1024).toFixed(1)} KB)`);
+
+  const distCopy = join(root, 'dist', basename(card.output));
+  if (existsSync(join(root, 'dist'))) {
+    copyFileSync(card.output, distCopy);
+    console.log(`Synced ${distCopy}`);
+  }
 }
