@@ -46,7 +46,7 @@ export const contact: Record<Lang, ContactContent> = {
     eyebrow: 'Contacto',
     headline: 'Hablemos.',
     intro: [
-      'Estoy abierto a posiciones senior de backend — full-time y completamente remoto — y a proyectos puntuales donde el problema sea un sistema que tenga que aguantar carga real.',
+      'Estoy abierto a posiciones senior de backend — full-time y completamente remoto — y a proyectos puntuales donde el problema sea un sistema que tenga que soportar carga real.',
       'La versión corta del trabajo desde 2008 está a un documento de distancia. La versión larga es la página de perfil, o una conversación.',
     ],
     details: [
@@ -58,12 +58,12 @@ export const contact: Record<Lang, ContactContent> = {
       { label: 'Ubicación', value: 'Lambayeque, Perú · GMT-5' },
       {
         label: 'Disponibilidad',
-        value: 'Full-time, 100% remoto · compatible con husos de LATAM y Estados Unidos',
+        value: 'Full-time, 100% remoto · compatible con zonas horarias de LATAM y Estados Unidos',
       },
       { label: 'Idiomas', value: 'Español (nativo) · Inglés (técnico, escrito)' },
       { label: 'Código', value: 'github.com/azaqero', href: 'https://github.com/azaqero' },
     ],
-    note: 'No hay formulario de contacto a propósito: este sitio no tiene backend. El correo me llega directo.',
+    note: 'No hay formulario de contacto a propósito: este sitio no tiene backend. El correo me llega directamente.',
     cvCta: 'Descargar el CV',
   },
 };

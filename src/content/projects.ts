@@ -12,7 +12,6 @@ export interface ProjectSection {
 
 export interface Project {
   slug: string;
-  status?: string;
   name: string;
   role: string;
   period?: string;
@@ -40,7 +39,7 @@ export const projects: Record<Lang, ProjectsContent> = {
     eyebrow: 'Projects',
     headline: 'Systems I built',
     intro:
-      'Four products, written up the way I would explain them in an interview: what the constraint was, what I chose, and what the choice cost.',
+      'Five products, written up the way I would explain them in an interview: what the constraint was, what I chose, and what the choice cost.',
     note: 'The source code for all of these is private, and most are no longer under my administration. What follows describes what I built and the decisions behind it — no client code, credentials or confidential data.',
     items: [
       {
@@ -131,10 +130,40 @@ export const projects: Record<Lang, ProjectsContent> = {
         sections: [
           {
             heading: 'One API, three consumers',
-            body: 'Appointments, inventory, clients and reporting, served to a web app, a native Android client and an admin dashboard. The API contract had to be stable enough that three independent interfaces could ship against it without stepping on each other.',
+            body: 'Appointments, inventory, clients and reporting, served to a web app, an Android app and an admin dashboard. The API contract had to be stable enough that three independent interfaces could ship against it without stepping on each other.',
           },
         ],
         stack: 'PHP · MySQL · REST · Android',
+      },
+      {
+        slug: 'daleespacio',
+        name: 'Dale Espacio',
+        role: 'Personal backup service',
+        period: 'Launched late September 2026',
+        status: 'Live, under my administration',
+        summary:
+          'Commercial landing page for a personal backup service, with a self-hosted Nextcloud instance behind it. I built the site and run the service; the storage engine and mobile apps are Nextcloud.',
+        facts: [
+          { label: 'Plans', value: '50 / 200 / 500 GB' },
+          { label: 'Storage engine', value: 'Self-hosted Nextcloud' },
+          { label: 'Clients', value: 'Web, Android, iOS' },
+        ],
+        sections: [
+          {
+            heading: 'What I built',
+            body: 'The public site: positioning, plan comparison, FAQ, contact flow and the copy that explains the product to a non-technical audience. It is a static front end, because nothing on the page needs more than that.',
+          },
+          {
+            heading: 'Where my code stops and Nextcloud starts',
+            body: 'Storage, file sync, sharing and the mobile apps are Nextcloud. I did not write them and I do not claim to. What I run is the infrastructure underneath: the server, the Nextcloud instance, the quotas behind each plan, and the operational support when a customer cannot log in.',
+          },
+          {
+            heading: 'Why the split is deliberate',
+            body: 'In a backup product the risk is not in the landing page; it is in the durability of the data. Reusing a mature sync engine and owning the hosting keeps the failure surface small, and leaves my work where it matters: keeping the service up and the files where the customer left them.',
+          },
+        ],
+        stack: 'HTML · CSS · JavaScript · Nextcloud · Self-hosted Linux',
+        url: 'https://www.daleespacio.com',
       },
     ],
     otherTitle: 'Also',
@@ -149,7 +178,7 @@ export const projects: Record<Lang, ProjectsContent> = {
     eyebrow: 'Proyectos',
     headline: 'Sistemas que construí',
     intro:
-      'Cuatro productos, escritos como los explicaría en una entrevista: cuál era la restricción, qué elegí y qué me costó esa elección.',
+      'Cinco productos, escritos como los explicaría en una entrevista: cuál era la restricción, qué elegí y qué me costó esa elección.',
     note: 'El código de todos estos proyectos es privado, y la mayoría ya no está bajo mi administración. Lo que sigue describe qué construí y las decisiones detrás — sin código de clientes, credenciales ni datos confidenciales.',
     items: [
       {
@@ -159,7 +188,7 @@ export const projects: Record<Lang, ProjectsContent> = {
         period: '2012 — 2025',
         status: 'Operado entre 2012 y 2025',
         summary:
-          'Ingesta leads y despacha cada uno a múltiples APIs de compradores. Lo interesante no es la tasa de peticiones: es que cada lead se multiplica en varias llamadas salientes.',
+          'Recibe leads y despacha cada uno a múltiples APIs de compradores. Lo interesante no es la tasa de peticiones: es que cada lead se multiplica en varias llamadas salientes.',
         facts: [
           { label: 'Carga entrante probada', value: '~10k peticiones en ~4 minutos' },
           { label: 'Workers salientes', value: '~300 por instancia' },
@@ -173,11 +202,11 @@ export const projects: Record<Lang, ProjectsContent> = {
           },
           {
             heading: 'Tres arquitecturas, el mismo producto',
-            body: 'PHP nativo, construido para rendimiento bajo hosting compartido (2012). Después AWS Lambda y API Gateway (2016), cambiando administración de servidores por escalado gestionado y aceptando cold starts. Después una reconstrucción de la capa de despacho en TypeScript con BullMQ y Redis Cluster (2025), porque la semántica de colas y la visibilidad que el stack anterior no daba pasaron a ser el requisito.',
+            body: 'PHP nativo, construido para rendimiento bajo hosting compartido (2012). Luego AWS Lambda y API Gateway (2016), cambiando administración de servidores por escalado gestionado y aceptando cold starts. Más adelante, una reconstrucción de la capa de despacho en TypeScript con BullMQ y Redis Cluster (2025), porque la semántica de colas y la visibilidad que el stack anterior no daba pasaron a ser el requisito.',
           },
           {
             heading: 'Escalar antes de la demanda en lugar de reaccionar',
-            body: 'Una t4g.small nueva tarda entre uno y dos minutos en estar lista, y los picos que diseñé duran unos cuatro. Un autoscaler reactivo entregaría capacidad cuando el pico ya terminó. Por eso un controlador observa la concurrencia en vivo y provisiona workers por delante de la curva, con el umbral calibrado a partir de pruebas de carga en vez de estimado. El tope de cincuenta instancias es un guardrail de costo, no un límite técnico.',
+            body: 'Una t4g.small nueva tarda entre uno y dos minutos en estar lista, y los picos que diseñé duran unos cuatro. Un autoscaler reactivo entregaría capacidad cuando el pico ya terminó. Por eso un controlador observa la concurrencia en vivo y provisiona workers por delante de la curva, con el umbral calibrado a partir de pruebas de carga en lugar de estimado. El tope de cincuenta instancias es un guardrail de costo, no un límite técnico.',
           },
           {
             heading: 'Cómo se obtuvieron los números',
@@ -201,7 +230,7 @@ export const projects: Record<Lang, ProjectsContent> = {
             body: 'Genera artículos orientados a SEO de forma automática, con múltiples formatos de exportación, detrás de una interfaz en React y TypeScript sobre un back end MySQL y una API propia.',
           },
           {
-            heading: 'La parte que casi todos saltean',
+            heading: 'La parte que casi todos omiten',
             body: 'Un SaaS no es solamente la aplicación. Necesita distribución, y eso vino del plugin oficial ArticleAI Fetcher publicado en wordpress.org — una vía de instalación para quien ya usa WordPress, en lugar de otro embudo de registro que construir.',
           },
         ],
@@ -222,7 +251,7 @@ export const projects: Record<Lang, ProjectsContent> = {
             body: 'Twilio aporta eventos de llamada, la FTC aporta datos de reclamos, y el scraping cubre los huecos entre ambas. Cada fuente tiene su latencia, su idea de qué es un número de teléfono y su manera de estar temporalmente caída. El producto es la reconciliación, no las integraciones.',
           },
           {
-            heading: 'El comercio adentro',
+            heading: 'El componente comercial',
             body: 'El acceso se vende con Stripe detrás de un panel, lo que significa que la superficie de integración incluye el estado de facturación, no solo la lógica de detección.',
           },
         ],
@@ -240,10 +269,40 @@ export const projects: Record<Lang, ProjectsContent> = {
         sections: [
           {
             heading: 'Una API, tres consumidores',
-            body: 'Turnos, inventario, clientes y reportes, servidos a una aplicación web, un cliente Android nativo y un panel de administración. El contrato de la API tenía que ser lo bastante estable como para que tres interfaces independientes avanzaran sin pisarse.',
+            body: 'Citas, inventario, clientes y reportes, servidos a una aplicación web, una aplicación Android y un panel de administración. El contrato de la API tenía que ser lo bastante estable como para que tres interfaces independientes avanzaran sin interferir entre sí.',
           },
         ],
         stack: 'PHP · MySQL · REST · Android',
+      },
+      {
+        slug: 'daleespacio',
+        name: 'Dale Espacio',
+        role: 'Servicio de respaldo personal',
+        period: 'Lanzado a finales de septiembre de 2026',
+        status: 'En línea, bajo mi administración',
+        summary:
+          'Landing comercial de un servicio de respaldo personal, con una instancia de Nextcloud autogestionada detrás. Construí el sitio y opero el servicio; el motor de almacenamiento y las apps móviles son de Nextcloud.',
+        facts: [
+          { label: 'Planes', value: '50 / 200 / 500 GB' },
+          { label: 'Motor de almacenamiento', value: 'Nextcloud autogestionado' },
+          { label: 'Clientes', value: 'Web, Android, iOS' },
+        ],
+        sections: [
+          {
+            heading: 'Qué construí',
+            body: 'El sitio público: posicionamiento, comparación de planes, preguntas frecuentes, flujo de contacto y el texto que explica el producto a una audiencia no técnica. Es un front end estático, porque nada en la página necesita más que eso.',
+          },
+          {
+            heading: 'Dónde termina mi código y empieza Nextcloud',
+            body: 'El almacenamiento, la sincronización de archivos, el uso compartido y las apps móviles son de Nextcloud. No los escribí y no me lo atribuyo. Lo que opero es la infraestructura que hay detrás: el servidor, la instancia de Nextcloud, las cuotas detrás de cada plan y el soporte operativo cuando un cliente no puede iniciar sesión.',
+          },
+          {
+            heading: 'Por qué la división es deliberada',
+            body: 'En un producto de respaldo el riesgo no está en la landing; está en la durabilidad de los datos. Reutilizar un motor de sincronización maduro y encargarme del hosting reduce la superficie de falla y deja mi trabajo donde importa: mantener el servicio en línea y los archivos donde el cliente los dejó.',
+          },
+        ],
+        stack: 'HTML · CSS · JavaScript · Nextcloud · Linux autogestionado',
+        url: 'https://www.daleespacio.com',
       },
     ],
     otherTitle: 'Además',

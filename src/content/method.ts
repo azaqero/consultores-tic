@@ -172,7 +172,7 @@ export const method: Record<Lang, MethodContent> = {
         },
         {
           title: 'Dividir el trabajo en tareas manejables',
-          body: 'Lo bastante chicas como para revisar cada una por separado y revertirla por separado. Una tarea que no se puede describir en una frase todavía no es una tarea.',
+          body: 'Lo bastante pequeñas como para revisar cada una por separado y revertirla por separado. Una tarea que no se puede describir en una frase todavía no es una tarea.',
         },
         {
           title: 'Escribir la especificación y después implementar contra ella',
@@ -180,17 +180,17 @@ export const method: Record<Lang, MethodContent> = {
         },
         {
           title: 'Usar agentes especializados donde realmente ayudan',
-          body: 'Exploración, refactors mecánicos, andamiaje de tests, borradores de documentación. Los agentes sirven justamente donde el trabajo está bien especificado, y por eso el paso cuatro tiene que ir primero.',
+          body: 'Exploración, refactors mecánicos, estructura inicial de tests, borradores de documentación. Los agentes sirven justamente donde el trabajo está bien especificado, y por eso el paso cuatro tiene que ir primero.',
         },
         {
-          title: 'Revisar, probar y hacerme cargo del resultado',
-          body: 'Cada diff se lee. Los tests son míos. La seguridad, el manejo de datos y el comportamiento ante fallas los reviso yo, no los afirma una herramienta. Después va a producción y respondo por él.',
+          title: 'Revisar, probar y asumir la responsabilidad del resultado',
+          body: 'Cada diff se lee. Los tests son míos. La seguridad, el manejo de datos y el comportamiento ante fallas los reviso yo, no los afirma una herramienta. Después va a producción y soy responsable de él.',
         },
       ],
     },
     division: {
       title: 'Qué cambia con la IA y qué no',
-      intro: 'La división honesta entre lo que delego y lo que me quedo.',
+      intro: 'La división honesta entre lo que delego y lo que mantengo para mí.',
       ai: {
         title: 'Delegado a agentes',
         items: [
@@ -201,20 +201,20 @@ export const method: Record<Lang, MethodContent> = {
         ],
       },
       me: {
-        title: 'Mío, siempre',
+        title: 'Mi responsabilidad, siempre',
         items: [
           'Decidir qué se construye y qué deliberadamente no',
           'Modelos de datos, contratos de API y todo lo que otros sistemas consumen',
           'Leer cada diff antes de que entre',
           'Criterio sobre tradeoffs, modos de falla y riesgo operativo',
-          'Hacerme cargo de lo que pasa en producción',
+          'Asumir la responsabilidad de lo que pasa en producción',
         ],
       },
     },
     cost: {
       title: 'Lo que esto cuesta en tiempo',
       intro:
-        'La IA comprime la parte que antes era tipear. No comprime las partes que deciden si el resultado está bien — y esas son la mayor parte del calendario.',
+        'La IA comprime la parte que antes era escribir. No comprime las partes que deciden si el resultado está bien — y esas son la mayor parte del calendario.',
       items: [
         {
           title: 'La especificación va primero, y es lenta a propósito',
@@ -222,11 +222,11 @@ export const method: Record<Lang, MethodContent> = {
         },
         {
           title: 'Cada diff se lee',
-          body: 'No se hojea porque compiló, ni se acepta porque un test dio verde. Las decisiones de datos, los contratos de API y el manejo de seguridad se leen a mano, línea por línea.',
+          body: 'No se revisa por encima porque compiló, ni se acepta porque un test pasó. Las decisiones de datos, los contratos de API y el manejo de seguridad se leen a mano, línea por línea.',
         },
         {
           title: 'Los tests se escriben, se revisan y se corren',
-          body: 'Un agente puede redactarlos. Aceptar un test que nadie leyó es peor que no tener ninguno, porque compra confianza falsa justo en el momento en que necesitás confianza real.',
+          body: 'Un agente puede redactarlos. Aceptar un test que nadie leyó es peor que no tener ninguno, porque compra confianza falsa justo en el momento en que necesitas confianza real.',
         },
         {
           title: 'El trabajo operativo no se acelera',
@@ -244,12 +244,12 @@ export const method: Record<Lang, MethodContent> = {
       body: 'Usar IA no vuelve al software correcto, seguro ni mantenible. Cambia la velocidad con que se produce código, y no cambia nada sobre si ese código está bien. La diferencia la hacen la revisión, las pruebas y la experiencia operativa — que es exactamente por qué esas son las partes que me niego a delegar.',
     },
     evidence: {
-      title: 'Podés verificarlo en lugar de creerme',
+      title: 'Puedes verificarlo en lugar de creerme',
       body: 'Las decisiones detrás de este sitio están registradas como Architecture Decision Records, incluyendo las alternativas que descarté y por qué. Son públicas, están fechadas y se escribieron antes del código, no después.',
       link: 'Leer las decisiones de arquitectura',
     },
     closing: {
-      title: '¿Querés los detalles?',
+      title: '¿Quieres los detalles?',
       body: 'El CV tiene la trayectoria; la página de proyectos tiene los sistemas.',
       cta: 'Ponerse en contacto',
     },

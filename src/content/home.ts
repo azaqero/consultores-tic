@@ -120,10 +120,10 @@ export const home: Record<Lang, HomeContent> = {
 
   es: {
     eyebrow: 'Ingeniero de Software Senior · Backend y Sistemas Distribuidos',
-    headline: 'Construyo sistemas backend que aguantan tráfico real.',
+    headline: 'Construyo sistemas backend que soportan tráfico real.',
     lede: 'Desde 2008, diseñando APIs, colas e infraestructura para sistemas en producción — y mido lo que afirmo.',
     intro:
-      'Experiencia en producción con PHP y Node.js/TypeScript, AWS, procesamiento por colas e integraciones con terceros. Me hago cargo de los productos de punta a punta, desde la infraestructura hasta el soporte técnico, y respondo por todo lo que publico.',
+      'Experiencia en producción con PHP y Node.js/TypeScript, AWS, procesamiento por colas e integraciones con terceros. Me encargo de los productos de principio a fin, desde la infraestructura hasta el soporte técnico, y soy responsable de todo lo que publico.',
     primaryCta: 'Ver trabajos seleccionados',
     secondaryCta: 'Descargar CV',
     availability: 'Disponible full-time, 100% remoto · GMT-5',
@@ -135,7 +135,7 @@ export const home: Record<Lang, HomeContent> = {
       items: [
         {
           name: 'ApiFuel',
-          tagline: 'Ingesta de leads sobre una flota auto-provisionada',
+          tagline: 'Recepción de leads sobre una flota auto-provisionada',
           body: 'Construido en PHP nativo por rendimiento, migrado a AWS Lambda y API Gateway, y reconstruido en TypeScript con BullMQ y Redis Cluster en 2025. Cada lead se distribuye a múltiples APIs de compradores, así que la capacidad la define la concurrencia saliente, no la tasa de peticiones.',
           metric:
             '~10k peticiones entrantes en ~4 minutos en pruebas de carga automatizadas, alcanzando ~30 instancias t4g.small auto-provisionadas (tope 50) con ~300 workers salientes cada una.',
@@ -144,7 +144,7 @@ export const home: Record<Lang, HomeContent> = {
         },
         {
           name: 'ArticleAI',
-          tagline: 'Plataforma SaaS de contenido, hecha en solitario',
+          tagline: 'Plataforma SaaS de contenido, desarrollada en solitario',
           body: 'Producto completo: front end en React y TypeScript, back end MySQL, una API propia, generación automática de contenido SEO y múltiples formatos de exportación. Incluye un plugin oficial publicado en wordpress.org.',
           stack: 'React · TypeScript · MySQL · plugin de WordPress',
           url: 'https://articleai.io',
@@ -167,7 +167,7 @@ export const home: Record<Lang, HomeContent> = {
         },
         {
           title: 'Procesamiento asíncrono y por colas',
-          body: 'El trabajo que no puede ocurrir dentro de un request: colas, reintentos, idempotencia, backoff. Redis y BullMQ en producción, incluyendo configuraciones en clúster.',
+          body: 'El trabajo que no puede ocurrir dentro de una petición: colas, reintentos, idempotencia, backoff. Redis y BullMQ en producción, incluyendo configuraciones en clúster.',
         },
         {
           title: 'Cloud e infraestructura',
@@ -181,12 +181,12 @@ export const home: Record<Lang, HomeContent> = {
     },
     method: {
       title: 'Cómo trabajo',
-      body: 'Primero la especificación: entender el problema, diseñar la solución más simple que lo resuelva y dividirla en tareas lo bastante chicas como para revisarlas. Uso agentes de IA especializados para ejecutar pasos elegidos deliberadamente — yo decido qué construir y cómo estructurarlo, y reviso, pruebo y respondo por el resultado. La IA aumenta la capacidad de ejecución; no reemplaza el criterio de ingeniería.',
+      body: 'Primero la especificación: entender el problema, diseñar la solución más simple que lo resuelva y dividirla en tareas lo bastante pequeñas como para revisarlas. Uso agentes de IA especializados para ejecutar pasos elegidos deliberadamente — yo decido qué construir y cómo estructurarlo, y reviso, pruebo y soy responsable del resultado. La IA aumenta la capacidad de ejecución; no reemplaza el criterio de ingeniería.',
       cta: 'Cómo uso IA sin ceder la responsabilidad',
     },
     contact: {
       title: 'Hablemos',
-      body: 'Abierto a posiciones senior de backend y a proyectos puntuales. Respondo el correo directamente — sin formularios.',
+      body: 'Abierto a posiciones senior de backend y a proyectos puntuales. Respondo los correos directamente — sin formularios.',
       cta: 'Gustavo@consultores-tic.com',
     },
   },

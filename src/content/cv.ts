@@ -147,6 +147,7 @@ export const cv: Record<Lang, CvContent> = {
       'WordPress multisite optimization (USA client): stabilized 30 sites on shared hosting with selective plugin loading, caching and bot filtering.',
       'Next.js multilingual site: rapidpersonalloans.com/es.',
       'Airbnb calendar integration: metrorailhouse.com.',
+      'Dale Espacio (daleespacio.com): commercial landing page and personal backup service running on self-hosted Nextcloud.',
     ],
     languages: [
       'Spanish (native); English (technical, written communication).',
@@ -165,15 +166,15 @@ export const cv: Record<Lang, CvContent> = {
     },
     summary: [
       'Ingeniero de software senior construyendo y operando productos backend y APIs usados por clientes reales desde 2008. Experiencia en producción con PHP y Node.js/TypeScript, AWS (Lambda, API Gateway, EC2, RDS), procesamiento por colas (BullMQ, Redis) e integraciones con APIs de terceros (Twilio, Stripe, FTC).',
-      'Trabajo con especificación previa y agentes especializados en varios proveedores de modelos, eligiendo cada modelo por costo y calidad. Reviso, pruebo y respondo por todo lo que publico. Me hago cargo de los productos de punta a punta: desde la infraestructura hasta el soporte en producción. Disponible full-time, 100% remoto.',
+      'Trabajo con especificación previa y agentes especializados en varios proveedores de modelos, eligiendo cada modelo por costo y calidad. Reviso, pruebo y soy responsable de todo lo que publico. Me encargo de los productos de principio a fin: desde la infraestructura hasta el soporte en producción. Disponible full-time, 100% remoto.',
     ],
     selectedWork: [
       {
-        title: 'Ingesta de leads de alto volumen con infraestructura auto-provisionada',
+        title: 'Recepción de leads de alto volumen con infraestructura auto-provisionada',
         body: 'Migré un motor de leads en PHP nativo a AWS Lambda y API Gateway, y después lo reconstruí en TypeScript con BullMQ y Redis Cluster (2025). Cada petición entrante se distribuye en múltiples POST salientes hacia APIs de compradores, así que la capacidad la define la concurrencia saliente, no la tasa de peticiones. Construí un controlador que observa la concurrencia en vivo y provisiona workers t4g.small efímeros por delante de la demanda — el arranque de una instancia tarda 1–2 minutos, así que el umbral se calibró empíricamente. Validado con pruebas de carga automatizadas: ~10k peticiones entrantes en ~4 minutos, escalando a ~30 instancias (tope duro de 50) con ~300 workers salientes cada una, medido con CloudWatch, Bull Board y PgBouncer.',
       },
       {
-        title: 'Producto completo de punta a punta',
+        title: 'Producto completo de principio a fin',
         body: 'Diseñé, construí y publiqué ArticleAI completo — front y back end en React/TypeScript/MySQL, API propia, generación automática de contenido SEO, múltiples formatos de exportación y un plugin oficial de WordPress publicado en wordpress.org.',
       },
       {
@@ -246,7 +247,7 @@ export const cv: Record<Lang, CvContent> = {
             name: 'Opticaz.pe',
             detail: 'Sistema de gestión para optometría',
             bullets: [
-              'Entregué una aplicación web, una aplicación Android y un panel de administración compartiendo una API REST: turnos, inventario, clientes y reportes (PHP, MySQL).',
+              'Entregué una aplicación web, una aplicación Android y un panel de administración compartiendo una API REST: citas, inventario, clientes y reportes (PHP, MySQL).',
             ],
           },
         ],
@@ -256,10 +257,11 @@ export const cv: Record<Lang, CvContent> = {
       'Optimización de WordPress multisite (cliente de Estados Unidos): 30 sitios estabilizados en hosting compartido con carga selectiva de plugins, caché y filtrado de bots.',
       'Sitio multilenguaje en Next.js: rapidpersonalloans.com/es.',
       'Integración de calendario de Airbnb: metrorailhouse.com.',
+      'Dale Espacio (daleespacio.com): landing comercial y servicio de respaldo personal sobre Nextcloud autogestionado.',
     ],
     languages: [
       'Español (nativo); inglés (técnico, comunicación escrita).',
-      'Full-time, 100% remoto desde Lambayeque, Perú, GMT-5 (compatible con husos de LATAM y Estados Unidos).',
+      'Full-time, 100% remoto desde Lambayeque, Perú, GMT-5 (compatible con zonas horarias de LATAM y Estados Unidos).',
     ],
   },
 };

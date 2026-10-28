@@ -112,6 +112,13 @@ export const profile: Record<Lang, ProfileContent> = {
           body: 'Web app, Android app and admin dashboard sharing one REST API: appointments, inventory, clients and reporting.',
           stack: 'PHP · MySQL · REST · Android',
         },
+        {
+          name: 'Dale Espacio',
+          role: 'Personal backup service',
+          body: 'Commercial landing page for a personal backup service, with a self-hosted Nextcloud instance behind it on my own infrastructure. I built the site and operate the service; storage, sync and mobile apps are Nextcloud.',
+          stack: 'HTML · CSS · JavaScript · Nextcloud',
+          url: 'https://www.daleespacio.com',
+        },
       ],
     },
     principles: {
@@ -149,13 +156,13 @@ export const profile: Record<Lang, ProfileContent> = {
     headline: identity.displayName,
     intro: [
       'Soy ingeniero backend. Desde 2008 construyo y opero sistemas de los que dependen otras personas — motores de leads que se distribuyen a decenas de APIs de compradores, plataformas de contenido, integraciones de telefonía, sistemas de gestión.',
-      'Dirijo Consultores TIC, una empresa chica de software y hosting. Eso significa que nunca tuve la opción de pasarle un problema a otro equipo: la infraestructura, el despliegue, el monitoreo, el soporte y la conversación con el cliente son míos. No es un camino que le recomendaría a todo el mundo, pero elimina cualquier distancia entre lo que construyo y lo que tengo que mantener vivo.',
+      'Dirijo Consultores TIC, una empresa pequeña de software y hosting. Eso significa que nunca tuve la opción de delegar un problema a otro equipo: la infraestructura, el despliegue, el monitoreo, el soporte y la conversación con el cliente son mi responsabilidad. No es un camino que recomendaría a todo el mundo, pero elimina cualquier distancia entre lo que construyo y lo que tengo que mantener funcionando.',
       'Trabajo con especificación previa y uso agentes de IA para avanzar más rápido. Yo decido qué construir, cómo estructurarlo y si resiste. Esa distinción me importa y la mantengo explícita.',
     ],
     timeline: {
       title: 'Cómo evolucionó el stack',
       intro:
-        'El mismo problema —ingestar leads y despacharlos a socios— resuelto tres veces, cada una con lo que las restricciones realmente exigían.',
+        'El mismo problema —recibir leads y despacharlos a socios— resuelto tres veces, cada una con lo que las restricciones realmente exigían.',
       entries: [
         {
           period: '2008',
@@ -170,7 +177,7 @@ export const profile: Record<Lang, ProfileContent> = {
         {
           period: '2016',
           title: 'ApiFuel — AWS Lambda y API Gateway',
-          body: 'Pasé el camino de ingesta y despacho a serverless. Cambié administración de servidores por escalado gestionado, a costa de cold starts y una depuración más difícil.',
+          body: 'Pasé el camino de recepción y despacho a serverless. Cambié administración de servidores por escalado gestionado, a costa de cold starts y una depuración más difícil.',
         },
         {
           period: '2025',
@@ -185,14 +192,14 @@ export const profile: Record<Lang, ProfileContent> = {
         {
           name: 'ApiFuel',
           role: 'Gestión y despacho de leads',
-          body: 'Ingesta leads y despachaba cada uno a múltiples APIs de compradores. En producción entre 2012 y 2025, sobre tres arquitecturas sucesivas.',
+          body: 'Recibe leads y despacha cada uno a múltiples APIs de compradores. En producción entre 2012 y 2025, sobre tres arquitecturas sucesivas.',
           stack: 'PHP · TypeScript · AWS Lambda · API Gateway · BullMQ · Redis · PostgreSQL',
           url: 'https://apifuel.com',
         },
         {
           name: 'ArticleAI',
           role: 'Plataforma SaaS de contenido',
-          body: 'Producto completo hecho en solitario: front end en React y TypeScript, back end MySQL, API propia, generación automática de contenido SEO y múltiples formatos de exportación. Se distribuye como plugin oficial de WordPress.',
+          body: 'Producto completo desarrollado en solitario: front end en React y TypeScript, back end MySQL, API propia, generación automática de contenido SEO y múltiples formatos de exportación. Se distribuye como plugin oficial de WordPress.',
           stack: 'React · TypeScript · MySQL · WordPress',
           url: 'https://articleai.io',
         },
@@ -206,14 +213,21 @@ export const profile: Record<Lang, ProfileContent> = {
         {
           name: 'Opticaz',
           role: 'Sistema de gestión para optometría',
-          body: 'Aplicación web, aplicación Android y panel de administración compartiendo una única API REST: turnos, inventario, clientes y reportes.',
+          body: 'Aplicación web, aplicación Android y panel de administración compartiendo una única API REST: citas, inventario, clientes y reportes.',
           stack: 'PHP · MySQL · REST · Android',
+        },
+        {
+          name: 'Dale Espacio',
+          role: 'Servicio de respaldo personal',
+          body: 'Landing comercial de un servicio de respaldo personal, con una instancia de Nextcloud autogestionada detrás, en mi propia infraestructura. Construí el sitio y opero el servicio; el almacenamiento, la sincronización y las apps móviles son de Nextcloud.',
+          stack: 'HTML · CSS · JavaScript · Nextcloud',
+          url: 'https://www.daleespacio.com',
         },
       ],
     },
     principles: {
-      title: 'Cómo encaro la ingeniería',
-      intro: 'Cuatro cosas por las que prefiero que me juzguen antes que por una lista de tecnologías.',
+      title: 'Cómo abordo la ingeniería',
+      intro: 'Cuatro aspectos por los que prefiero que me evalúen antes que por una lista de tecnologías.',
       items: [
         {
           title: 'Lo más simple que satisface el requisito',
@@ -228,8 +242,8 @@ export const profile: Record<Lang, ProfileContent> = {
           body: 'Las integraciones, las colas y las redes fallan parcialmente y de forma ambigua. Los reintentos necesitan idempotencia, el despacho necesita backpressure, y los logs tienen que responder «qué pasó con esta petición concreta».',
         },
         {
-          title: 'Hacerse cargo de todo',
-          body: 'El código que nadie opera es una suposición. Lo despliego, lo monitoreo, contesto el correo de soporte y lo arreglo a las 2 de la mañana si hace falta.',
+          title: 'Asumir la responsabilidad de todo',
+          body: 'El código que nadie opera es una suposición. Lo despliego, lo monitoreo, respondo el correo de soporte y lo corrijo a las 2 de la mañana si hace falta.',
         },
       ],
     },
