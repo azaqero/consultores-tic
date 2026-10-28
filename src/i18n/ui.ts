@@ -49,6 +49,7 @@ export const ui = {
       contact: 'Contact',
     },
     languageLabel: 'Language',
+    newTabHint: 'opens in a new tab',
     switchTo: 'Ver en español',
     footer: {
       tagline: 'Backend systems, APIs and distributed processing.',
@@ -69,6 +70,7 @@ export const ui = {
       contact: 'Contacto',
     },
     languageLabel: 'Idioma',
+    newTabHint: 'se abre en una pestaña nueva',
     switchTo: 'View in English',
     footer: {
       tagline: 'Sistemas backend, APIs y procesamiento distribuido.',

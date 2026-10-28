@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import type { Lang } from '../i18n/ui';
 import { identity } from '../config';
 import { pathFor } from '../i18n/ui';
+import { t } from '../i18n/ui';
 import { contact } from '../content/contact';
 
 export interface Props {
@@ -11,6 +12,7 @@ export interface Props {
 
 const { lang } = Astro.props;
 const c = contact[lang];
+const strings = t(lang);
 
 const meta = {
   en: {
@@ -48,7 +50,18 @@ const meta = {
             <div>
               <dt>{detail.label}</dt>
               <dd>
-                {detail.href ? <a href={detail.href}>{detail.value}</a> : detail.value}
+                {detail.href ? (
+                  detail.href.startsWith('http') ? (
+                    <a href={detail.href} target="_blank" rel="noopener">
+                      {detail.value}
+                      <span class="visually-hidden"> ({strings.newTabHint})</span>
+                    </a>
+                  ) : (
+                    <a href={detail.href}>{detail.value}</a>
+                  )
+                ) : (
+                  detail.value
+                )}
               </dd>
             </div>
           ))

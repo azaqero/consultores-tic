@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import type { Lang } from '../i18n/ui';
-import { pathFor, publishedRoutes } from '../i18n/ui';
+import { pathFor, publishedRoutes, t } from '../i18n/ui';
 import { home } from '../content/home';
 import { identity } from '../config';
 
@@ -11,6 +11,7 @@ export interface Props {
 
 const { lang } = Astro.props;
 const c = home[lang];
+const strings = t(lang);
 
 const meta = {
   en: {
@@ -59,8 +60,9 @@ const email = identity.publicEmail;
             {item.metric && <p class="card__metric">{item.metric}</p>}
             <p class="card__stack">{item.stack}</p>
             {item.url && (
-              <a class="card__link" href={item.url} rel="noopener">
+              <a class="card__link" href={item.url} target="_blank" rel="noopener">
                 {item.url.replace(/^https?:\/\//, '')}
+                <span class="visually-hidden"> ({strings.newTabHint})</span>
               </a>
             )}
           </li>

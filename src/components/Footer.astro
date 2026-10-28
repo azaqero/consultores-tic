@@ -27,7 +27,10 @@ const decisionsUrl = 'https://github.com/azaqero/consultores-tic/tree/main/docs/
 
     <ul class="site-footer__links">
       <li>
-        <a href={decisionsUrl} rel="noopener">{strings.footer.decisions}</a>
+        <a href={decisionsUrl} target="_blank" rel="noopener">
+          {strings.footer.decisions}
+          <span class="visually-hidden"> ({strings.newTabHint})</span>
+        </a>
       </li>
       <li>
         <a href={`mailto:${identity.publicEmail}`}>{identity.publicEmail}</a>
