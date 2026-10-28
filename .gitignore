@@ -5,6 +5,9 @@ node_modules/
 dist/
 .astro/
 
+# Gentle AI agent artifacts
+.atl/
+
 # Environment
 .env
 .env.production
