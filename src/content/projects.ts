@@ -59,7 +59,7 @@ export const projects: Record<Lang, ProjectsContent> = {
         sections: [
           {
             heading: 'The constraint that shaped everything',
-            body: 'A lead arrives once and leaves several times: each one is dispatched to multiple buyer APIs, each of which can fail, slow down or reject independently. That makes capacity a function of outbound concurrency, not of how many requests arrive per second. Optimising inbound throughput would have solved the wrong problem.',
+            body: 'A lead arrives once and leaves several times: each one is dispatched to multiple buyer APIs, each of which can fail, slow down or reject independently. That makes capacity a function of outbound concurrency, not of how many requests arrive per second. Optimizing inbound throughput would have solved the wrong problem.',
           },
           {
             heading: 'Three architectures, same product',
@@ -108,7 +108,7 @@ export const projects: Record<Lang, ProjectsContent> = {
           'Three unreliable external sources — telephony events, public complaint data and scraping — normalized into one signal a customer can act on.',
         sections: [
           {
-            heading: 'Normalising three bad sources into one good answer',
+            heading: 'Normalizing three bad sources into one good answer',
             body: 'Twilio supplies call events, the FTC supplies complaint data, and scraping fills the gaps between them. Each source has its own latency, its own idea of what a phone number looks like, and its own way of being temporarily unavailable. The product is the reconciliation, not the integrations.',
           },
           {
@@ -164,7 +164,7 @@ export const projects: Record<Lang, ProjectsContent> = {
     ],
     otherTitle: 'Also',
     otherItems: [
-      'WordPress multisite optimisation for a US client: stabilised 30 sites on shared hosting through selective plugin loading, caching and bot filtering.',
+      'WordPress multisite optimization for a US client: stabilized 30 sites on shared hosting through selective plugin loading, caching and bot filtering.',
       'Multilingual Next.js site for rapidpersonalloans.com/es.',
       'Airbnb calendar integration for metrorailhouse.com.',
     ],

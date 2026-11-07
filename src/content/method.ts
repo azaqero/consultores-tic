@@ -80,7 +80,7 @@ export const method: Record<Lang, MethodContent> = {
         },
         {
           title: 'Review, test, and take the result',
-          body: 'Every diff is read. The tests are mine. Security, data handling and failure behaviour are checked by me, not asserted by a tool. Then it goes to production and I answer for it.',
+          body: 'Every diff is read. The tests are mine. Security, data handling and failure behavior are checked by me, not asserted by a tool. Then it goes to production and I answer for it.',
         },
       ],
     },

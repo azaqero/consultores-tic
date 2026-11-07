@@ -52,7 +52,7 @@ export const profile: Record<Lang, ProfileContent> = {
     headline: identity.displayName,
     intro: [
       'I am a backend engineer. Since 2008 I have built and operated systems that other people depend on — lead engines that fan out to dozens of buyer APIs, content platforms, telephony integrations, management systems.',
-      'I run Consultores TIC, a small software and hosting company. That means I have never had the option of handing a problem to another team: infrastructure, deployment, monitoring, support and the customer conversation are all mine. It is not a career path I would recommend to everyone, but it removes any gap between what I build and what I have to keep alive.',
+      'I have worked as an independent contractor since 2008, with AffiliateBrothers Inc as my principal client until 2025. That means I have never had the option of handing a problem to another team: infrastructure, deployment, monitoring, support and the customer conversation are all mine. It is not a career path I would recommend to everyone, but it removes any gap between what I build and what I have to keep alive.',
       'I work spec-first and I use AI agents to move faster. I decide what to build, how it is structured, and whether it holds. That distinction matters to me and I keep it explicit.',
     ],
     timeline: {
@@ -62,13 +62,13 @@ export const profile: Record<Lang, ProfileContent> = {
       entries: [
         {
           period: '2008',
-          title: 'Consultores TIC',
-          body: 'Founded a software and hosting company serving local and international clients. Infrastructure, development and technical support for the same accounts for over a decade.',
+          title: 'consultores-tic.com',
+          body: 'Started an independent software practice and a long-term contract with AffiliateBrothers Inc, a U.S. company. Infrastructure, development and technical support for the same accounts for over a decade.',
         },
         {
           period: '2012',
           title: 'ApiFuel — native PHP',
-          body: 'Built the lead engine in native PHP, tuned for throughput under shared-hosting constraints. Performance was a design requirement from day one, not an optimisation pass.',
+          body: 'Built the lead engine in native PHP, tuned for throughput under shared-hosting constraints. Performance was a design requirement from day one, not an optimization pass.',
         },
         {
           period: '2016',
@@ -157,7 +157,7 @@ export const profile: Record<Lang, ProfileContent> = {
     headline: identity.displayName,
     intro: [
       'Soy ingeniero backend. Desde 2008 construyo y opero sistemas de los que dependen otras personas — motores de leads que se distribuyen a decenas de APIs de compradores, plataformas de contenido, integraciones de telefonía, sistemas de gestión.',
-      'Dirijo Consultores TIC, una empresa pequeña de software y hosting. Eso significa que nunca tuve la opción de delegar un problema a otro equipo: la infraestructura, el despliegue, el monitoreo, el soporte y la conversación con el cliente son mi responsabilidad. No es un camino que recomendaría a todo el mundo, pero elimina cualquier distancia entre lo que construyo y lo que tengo que mantener funcionando.',
+      'Trabajo como contratista independiente desde 2008, con AffiliateBrothers Inc como cliente principal hasta 2025. Eso significa que nunca tuve la opción de delegar un problema a otro equipo: la infraestructura, el despliegue, el monitoreo, el soporte y la conversación con el cliente son mi responsabilidad. No es un camino que recomendaría a todo el mundo, pero elimina cualquier distancia entre lo que construyo y lo que tengo que mantener funcionando.',
       'Trabajo con especificación previa y uso agentes de IA para avanzar más rápido. Yo decido qué construir, cómo estructurarlo y si resiste. Esa distinción me importa y la mantengo explícita.',
     ],
     timeline: {
@@ -167,8 +167,8 @@ export const profile: Record<Lang, ProfileContent> = {
       entries: [
         {
           period: '2008',
-          title: 'Consultores TIC',
-          body: 'Fundé una empresa de software y hosting que atiende clientes locales e internacionales. Infraestructura, desarrollo y soporte técnico para las mismas cuentas durante más de una década.',
+          title: 'consultores-tic.com',
+          body: 'Inicié una práctica independiente de software y un contrato de largo plazo con AffiliateBrothers Inc, una empresa estadounidense. Infraestructura, desarrollo y soporte técnico para las mismas cuentas durante más de una década.',
         },
         {
           period: '2012',

@@ -30,6 +30,13 @@ export interface CvJob {
 export interface CvContent {
   name: string;
   title: string;
+  /**
+   * Month the content was last revised, as `YYYY-MM`.
+   *
+   * Single source of truth for the "last updated" line on the CV page: bump
+   * this one value instead of editing a date string in every locale.
+   */
+  lastUpdated: string;
   contact: {
     location: string;
     email: string;
@@ -48,6 +55,7 @@ export const cv: Record<Lang, CvContent> = {
   en: {
     name: identity.displayName,
     title: 'Senior Software Engineer | Backend Products, APIs & AI-Assisted Development',
+    lastUpdated: '2026-11',
     contact: {
       location: 'Lambayeque, Peru (GMT-5)',
       email: identity.publicEmail,
@@ -103,11 +111,11 @@ export const cv: Record<Lang, CvContent> = {
     ],
     experience: [
       {
-        role: 'Founder and Senior Software Engineer',
-        company: 'Consultores TIC',
+        role: 'Independent Software Engineer',
+        company: 'consultores-tic.com — principal client: AffiliateBrothers Inc (U.S.)',
         period: '2008 — present',
         intro:
-          'Software and hosting company serving local and international clients, handling everything from infrastructure setup to technical support. Selected products:',
+          'Independent software practice. My principal client from 2008 to 2025 was AffiliateBrothers Inc, a U.S. company that commissioned five products from me across seventeen years; I built and operated them end to end, from infrastructure to production support. The main ones:',
         entries: [
           {
             name: 'ApiFuel.com',
@@ -134,8 +142,22 @@ export const cv: Record<Lang, CvContent> = {
             ],
           },
           {
+            name: 'RapidPersonalLoans.com',
+            detail: 'Multilingual marketing site',
+            bullets: [
+              'Built the Spanish-language version of the site in Next.js.',
+            ],
+          },
+          {
+            name: 'MetroRailHouse.com',
+            detail: 'Property rental site',
+            bullets: [
+              'Integrated the Airbnb calendar into the rental site.',
+            ],
+          },
+          {
             name: 'Opticaz.pe',
-            detail: 'Optometry management system',
+            detail: 'Optometry management system — independent client',
             bullets: [
               'Delivered a web app, an Android app and an admin dashboard sharing a REST API: appointments, inventory, clients and reports (PHP, MySQL).',
             ],
@@ -144,9 +166,8 @@ export const cv: Record<Lang, CvContent> = {
       },
     ],
     otherWork: [
-      'WordPress multisite optimization (USA client): stabilized 30 sites on shared hosting with selective plugin loading, caching and bot filtering.',
-      'Next.js multilingual site: rapidpersonalloans.com/es.',
-      'Airbnb calendar integration: metrorailhouse.com.',
+      'Current (2025 — present): hosting and WordPress support for a client, plus development of my own AI-assisted engineering workflow.',
+      'WordPress multisite optimization for Immages Web Design Studio (U.S.): stabilized 30 sites on shared hosting with selective plugin loading, caching and bot filtering.',
       'Dale Espacio (daleespacio.com): commercial landing page and personal backup service running on self-hosted Nextcloud.',
     ],
     languages: [
@@ -158,6 +179,7 @@ export const cv: Record<Lang, CvContent> = {
   es: {
     name: identity.displayName,
     title: 'Ingeniero de Software Senior | Productos Backend, APIs y Desarrollo Asistido por IA',
+    lastUpdated: '2026-11',
     contact: {
       location: 'Lambayeque, Perú (GMT-5)',
       email: identity.publicEmail,
@@ -213,11 +235,11 @@ export const cv: Record<Lang, CvContent> = {
     ],
     experience: [
       {
-        role: 'Fundador e Ingeniero de Software Senior',
-        company: 'Consultores TIC',
+        role: 'Ingeniero de Software Independiente',
+        company: 'consultores-tic.com — cliente principal: AffiliateBrothers Inc (EE. UU.)',
         period: '2008 — presente',
         intro:
-          'Empresa de software y hosting que atiende clientes locales e internacionales, encargándose desde la infraestructura hasta el soporte técnico. Productos destacados:',
+          'Práctica independiente de software. Mi cliente principal entre 2008 y 2025 fue AffiliateBrothers Inc, una empresa estadounidense que me encargó cinco productos a lo largo de diecisiete años; los construí y operé de principio a fin, desde la infraestructura hasta el soporte en producción. Los principales:',
         entries: [
           {
             name: 'ApiFuel.com',
@@ -244,8 +266,22 @@ export const cv: Record<Lang, CvContent> = {
             ],
           },
           {
+            name: 'RapidPersonalLoans.com',
+            detail: 'Sitio de marketing multilenguaje',
+            bullets: [
+              'Construí la versión en español del sitio con Next.js.',
+            ],
+          },
+          {
+            name: 'MetroRailHouse.com',
+            detail: 'Sitio de alquiler de propiedades',
+            bullets: [
+              'Integré el calendario de Airbnb en el sitio de alquiler.',
+            ],
+          },
+          {
             name: 'Opticaz.pe',
-            detail: 'Sistema de gestión para optometría',
+            detail: 'Sistema de gestión para optometría — cliente independiente',
             bullets: [
               'Entregué una aplicación web, una aplicación Android y un panel de administración compartiendo una API REST: citas, inventario, clientes y reportes (PHP, MySQL).',
             ],
@@ -254,9 +290,8 @@ export const cv: Record<Lang, CvContent> = {
       },
     ],
     otherWork: [
-      'Optimización de WordPress multisite (cliente de Estados Unidos): 30 sitios estabilizados en hosting compartido con carga selectiva de plugins, caché y filtrado de bots.',
-      'Sitio multilenguaje en Next.js: rapidpersonalloans.com/es.',
-      'Integración de calendario de Airbnb: metrorailhouse.com.',
+      'Actualidad (2025 — presente): hosting y soporte de WordPress para un cliente, y desarrollo de mi propio flujo de ingeniería asistido por IA.',
+      'Optimización de WordPress multisite para Immages Web Design Studio (EE. UU.): 30 sitios estabilizados en hosting compartido con carga selectiva de plugins, caché y filtrado de bots.',
       'Dale Espacio (daleespacio.com): landing comercial y servicio de respaldo personal sobre Nextcloud autogestionado.',
     ],
     languages: [
@@ -265,3 +300,47 @@ export const cv: Record<Lang, CvContent> = {
     ],
   },
 };
+
+const MONTHS: Record<Lang, string[]> = {
+  en: [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ],
+  es: [
+    'enero',
+    'febrero',
+    'marzo',
+    'abril',
+    'mayo',
+    'junio',
+    'julio',
+    'agosto',
+    'septiembre',
+    'octubre',
+    'noviembre',
+    'diciembre',
+  ],
+};
+
+/**
+ * Formats a `YYYY-MM` value as a human-readable month for the given language.
+ *
+ * Falls back to the raw value when it cannot be parsed, so a typo in the
+ * constant never renders "undefined" on the page.
+ */
+export function formatLastUpdated(iso: string, lang: Lang): string {
+  const [year, month] = iso.split('-').map(Number);
+  const name = MONTHS[lang][month - 1];
+  if (!name) return iso;
+  return lang === 'en' ? `${name} ${year}` : `${name} de ${year}`;
+}

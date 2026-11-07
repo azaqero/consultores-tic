@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import type { Lang } from '../i18n/ui';
 import { identity } from '../config';
-import { cv } from '../content/cv';
+import { cv, formatLastUpdated } from '../content/cv';
 import { withBase } from '../i18n/ui';
 import { existsSync } from 'node:fs';
 
@@ -25,7 +25,7 @@ const strings = {
     experience: 'Experience',
     otherWork: 'Other Work',
     languages: 'Languages and Availability',
-    updated: 'Last updated October 2026',
+    updatedLabel: 'Last updated',
   },
   es: {
     eyebrow: 'Curriculum Vitae',
@@ -37,7 +37,7 @@ const strings = {
     experience: 'Experiencia',
     otherWork: 'Otros trabajos',
     languages: 'Idiomas y disponibilidad',
-    updated: 'Última actualización: octubre de 2026',
+    updatedLabel: 'Última actualización:',
   },
 }[lang];
 
@@ -55,6 +55,7 @@ const meta = {
 }[lang];
 
 const c = cv[lang];
+const updatedLabel = `${strings.updatedLabel} ${formatLastUpdated(c.lastUpdated, lang)}`;
 const pdfPath = lang === 'en' ? '/cv.pdf' : '/es/cv.pdf';
 const contactLine = [
   c.contact.location,
@@ -66,7 +67,7 @@ const contactLine = [
 
 <BaseLayout title={meta.title} description={meta.description} route="cv" lang={lang}>
   <div class="cv-toolbar no-print">
-    <p>{strings.updated}</p>
+    <p>{updatedLabel}</p>
     <div class="cv-toolbar__actions">
       <a class="button button--primary" href={withBase(pdfPath)} download>{strings.download}</a>
     </div>
